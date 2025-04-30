@@ -44,9 +44,7 @@ const Html5QrCodePlugin = (props: any) => {
     }, []);
 
     return (
-        <div className="qr_code_scanner_frame">
         <div id={qrCodeRegionId} />
-        </div>
     );
 };
 

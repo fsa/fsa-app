@@ -73,14 +73,12 @@ const QrCodeScanner = (props: any) => {
 
   return (
     <div className="qr-scanner">
-      <div>
-        <Html5QrCodePlugin
-          fps={10}
-          qrbox={250}
-          disableFlip={true}
-          qrCodeSuccessCallback={onNewScanResult}
-        />
-      </div>
+      <Html5QrCodePlugin
+        fps={10}
+        qrbox={250}
+        disableFlip={true}
+        qrCodeSuccessCallback={onNewScanResult}
+      />
       <div>{errorMessage}</div>
       {editMode ? (
         <div className="edit-form">
