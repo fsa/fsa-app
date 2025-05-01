@@ -8,5 +8,10 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function About() {
-  return <main><div>About!</div></main>;
+  return (
+  <main>
+    <h1>О сайте!</h1>
+    <p>Это просто демонстрационный сайт на React.</p>
+  </main>
+  )
 }
