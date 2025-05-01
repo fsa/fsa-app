@@ -62,7 +62,7 @@ main {
 }
 
 .qr_code_scanner_frame {
-    max-width: 320px;
+    max-width: 300px;
 
     .card {
         padding: 2em;
