@@ -39,3 +39,29 @@
   overflow-x: auto;
   width: 300px;
 }
+
+.scaner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #e5e5e5;
+}
+
+#qrCodeContainer {
+  position: relative;
+  width: 300px;
+  height: 220px;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.start-button {
+  padding: 5px;
+  background-color: black;
+  border: 0;
+  border-radius: 7px;
+  font-size: 20px;
+  color: #fff;
+}

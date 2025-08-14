@@ -1,11 +1,9 @@
-// @ts-check
-
-import React, { useState } from 'react';
-import './scanner.css';
-import Html5QrCodePlugin from '../components/Html5QrCodePlugin';
+import { Html5Qrcode } from "html5-qrcode";
+import React, { useState, useEffect } from "react";
+import "./scanner.css";
 import axios from 'axios';
 
-const QrCodeScanner = (props: any) => {
+function QrCodeScanner() {
   const [decodedResults, setDecodedResults] = useState('Сканируйте код');
   const [editable, setEditable] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -13,38 +11,79 @@ const QrCodeScanner = (props: any) => {
   const [editedDescription, setEditedDescription] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const onNewScanResult = (decodedText: string, decodedResult: any) => {
-    setErrorMessage('Отправка кода на сервер...')
-    axios.post('https://my.fsa.su/api/scan',
-      {
-        "text": decodedText,
-        "format": decodedResult.result.format.format,
-        "format_name": decodedResult.result.format.formatName,
-      },
-      {
-        headers: { 'Content-Type': 'application/json' }
+  const [isEnabled, setEnabled] = useState(false);
+  const [qrMessage, setQrMessage] = useState("");
+
+  let qrboxFunction = function (viewfinderWidth: number, viewfinderHeight: number) {
+    let minEdgePercentage = 0.9;
+    let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+    let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
+    return {
+      width: qrboxSize,
+      height: qrboxSize
+    };
+  }
+
+  useEffect(() => {
+    const config = { fps: 10, qrbox: qrboxFunction, aspectRatio: 1.0 };
+
+    const html5QrCode = new Html5Qrcode("qrCodeContainer");
+
+    const qrScanerStop = () => {
+      if (html5QrCode && html5QrCode.isScanning) {
+        html5QrCode
+          .stop()
+          .then((ignore) => console.log("Scaner stop"))
+          .catch((err) => console.log("Scaner error"));
       }
-    ).then((response) => {
-      setErrorMessage('');
-      setCodeId(response.data.id);
-      setDecodedResults(response.data.data);
-      setEditable(response.data.editable);
-      setEditedDescription(response.data.description || '');
-      setEditMode(false);
+    };
+
+    const qrCodeSuccess = (decodedText: string, decodedResult: any) => {
+      setQrMessage(decodedText);
+      setErrorMessage('Отправка кода на сервер...')
+      axios.post('/scan',
+        {
+          "text": decodedText,
+          "format": decodedResult.result.format.format,
+          "format_name": decodedResult.result.format.formatName,
+        },
+        {
+          headers: { 'Content-Type': 'application/json' }
+        }
+      ).then((response) => {
+        setErrorMessage('');
+        setCodeId(response.data.id);
+        setDecodedResults(response.data.data);
+        setEditable(response.data.editable);
+        setEditedDescription(response.data.description || '');
+        setEditMode(false);
+      }
+      ).catch((error) => {
+        setErrorMessage(error.message);
+        setEditable(false);
+        setEditMode(false);
+      }
+      );
+      setEnabled(false);
+    };
+
+    if (isEnabled) {
+      html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccess, undefined );
+      setQrMessage("");
+    } else {
+      qrScanerStop();
     }
-    ).catch((error) => {
-      setErrorMessage(error.message);
-      setEditable(false);
-      setEditMode(false);
-    }
-    );
-  };
+
+    return () => {
+      qrScanerStop();
+    };
+  }, [isEnabled]);
 
   const handleEditClick = () => {
     setEditMode(true);
   };
 
-  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleDescriptionChange = (e: any) => {
     setEditedDescription(e.target.value);
   };
 
@@ -72,13 +111,14 @@ const QrCodeScanner = (props: any) => {
   };
 
   return (
-    <div className="qr-scanner">
-      <Html5QrCodePlugin
-        fps={10}
-        qrbox={250}
-        disableFlip={true}
-        qrCodeSuccessCallback={onNewScanResult}
-      />
+    <div className="scaner">
+      <div>
+        <button className="start-button" onClick={() => setEnabled(!isEnabled)}>
+          {isEnabled ? "Выключить" : "Включить"}
+        </button>
+      </div>
+      <div id="qrCodeContainer" />
+      {qrMessage && <div className="qr-message">{qrMessage}</div>}
       <div>{errorMessage}</div>
       {editMode ? (
         <div className="edit-form">
@@ -105,6 +145,6 @@ const QrCodeScanner = (props: any) => {
       )}
     </div>
   );
-};
+}
 
 export default QrCodeScanner;
