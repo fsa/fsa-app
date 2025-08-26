@@ -1,7 +1,7 @@
 import { Html5Qrcode } from "html5-qrcode";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./scanner.css";
-import axios from 'axios';
+import { api } from '../api/client';
 
 function QrCodeScanner() {
   const [decodedResults, setDecodedResults] = useState('Сканируйте код');
@@ -41,7 +41,7 @@ function QrCodeScanner() {
     const qrCodeSuccess = (decodedText: string, decodedResult: any) => {
       setQrMessage(decodedText);
       setErrorMessage('Отправка кода на сервер...')
-      axios.post('/scan',
+      api.post('/scan',
         {
           "text": decodedText,
           "format": decodedResult.result.format.format,
@@ -89,7 +89,7 @@ function QrCodeScanner() {
 
   const handleSaveDescription = () => {
     setErrorMessage('Сохраняем описание кода...');
-    axios.post('/scan/update-description',
+    api.post('/scan/update-description',
       {
         id: codeId,
         description: editedDescription
