@@ -5,7 +5,7 @@ import {
     refreshAccessToken,
 } from "./auth";
 
-const API_BASE_URL = "https://my.fsa.su/api";
+const API_BASE_URL = "https://fsa.su/api";
 
 export const authApi = axios.create({
     baseURL: API_BASE_URL,

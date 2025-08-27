@@ -8,6 +8,7 @@ function QrCodeScanner() {
   const [editable, setEditable] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [codeId, setCodeId] = useState(null);
+  const [description, setDescription] = useState('');
   const [editedDescription, setEditedDescription] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -29,12 +30,12 @@ function QrCodeScanner() {
 
     const html5QrCode = new Html5Qrcode("qrCodeContainer");
 
-    const qrScanerStop = () => {
+    const qrScannerStop = () => {
       if (html5QrCode && html5QrCode.isScanning) {
         html5QrCode
           .stop()
-          .then((ignore) => console.log("Scaner stop"))
-          .catch((err) => console.log("Scaner error"));
+          .then((ignore) => console.log("Scanner stop"))
+          .catch((err) => console.log("Scanner error"));
       }
     };
 
@@ -55,6 +56,7 @@ function QrCodeScanner() {
         setCodeId(response.data.id);
         setDecodedResults(response.data.data);
         setEditable(response.data.editable);
+        setDescription(response.data.description || '');
         setEditedDescription(response.data.description || '');
         setEditMode(false);
       }
@@ -71,15 +73,16 @@ function QrCodeScanner() {
       html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccess, undefined );
       setQrMessage("");
     } else {
-      qrScanerStop();
+      qrScannerStop();
     }
 
     return () => {
-      qrScanerStop();
+      qrScannerStop();
     };
   }, [isEnabled]);
 
   const handleEditClick = () => {
+    setEditedDescription(description);
     setEditMode(true);
   };
 
@@ -99,6 +102,7 @@ function QrCodeScanner() {
       }
     ).then((response) => {
       setErrorMessage('');
+      setDescription(editedDescription);
       setEditMode(false);
     }).catch((error) => {
       setErrorMessage(error.message);
@@ -107,11 +111,10 @@ function QrCodeScanner() {
 
   const handleCancelEdit = () => {
     setEditMode(false);
-    setEditedDescription(decodedResults || '');
   };
 
   return (
-    <div className="scaner">
+    <div className="scanner">
       <div>
         <button className="start-button" onClick={() => setEnabled(!isEnabled)}>
           {isEnabled ? "Выключить" : "Включить"}
@@ -137,7 +140,7 @@ function QrCodeScanner() {
       ) : (
         <div className="result-display">
           <p>{decodedResults}</p>
-          <p>{editedDescription}</p>
+          <p>{description}</p>
           {editable && (
             <button onClick={handleEditClick}>Редактировать описание</button>
           )}
