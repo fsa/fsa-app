@@ -8,6 +8,5 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  console.log(import.meta.env);
   return <main><div>Welcome!</div></main>;
 }
