@@ -5,16 +5,14 @@ import {
     refreshAccessToken,
 } from "./auth";
 
-const API_BASE_URL = "https://fsa.su/api";
-
 export const authApi = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: import.meta.env.FSA_API_BASE_URL,
     headers: { "Content-Type": "application/json" },
     withCredentials: true, // нужно для refresh cookie
 });
 
 export const api = axios.create({
-    baseURL: API_BASE_URL,
+    baseURL: import.meta.env.FSA_API_BASE_URL,
     headers: { "Content-Type": "application/json" },
     withCredentials: true,
 });
