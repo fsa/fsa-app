@@ -109,6 +109,16 @@ main {
     }
 }
 
+.qr-message {
+    overflow-x: auto;
+    text-align: center;
+}
+
+.qr-error-message {
+    overflow-x: auto;
+    text-align: center;
+}
+
 /* Message Page */
 main.error_message {
     h1 {

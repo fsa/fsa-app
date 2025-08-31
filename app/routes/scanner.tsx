@@ -122,7 +122,7 @@ function QrCodeScanner() {
       </div>
       <div id="qrCodeContainer" />
       {qrMessage && <div className="qr-message">{qrMessage}</div>}
-      <div>{errorMessage}</div>
+      {errorMessage && <div className="qr-error-message">{errorMessage}</div>}
       {editMode ? (
         <div className="edit-form">
           <p>{decodedResults}</p>
