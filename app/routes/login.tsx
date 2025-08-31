@@ -31,7 +31,7 @@ export default function Home() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>SPA: Login + Refresh</h1>
+      <h1>Вход</h1>
 
       {!getAccessToken() ? (
         <div>
