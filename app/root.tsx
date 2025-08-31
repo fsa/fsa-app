@@ -99,3 +99,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     </main>
   );
 }
+
+export function HydrateFallback() {
+  return (
+    <main>
+      <h1>Загрузка...</h1>
+    </main>
+  )
+}
