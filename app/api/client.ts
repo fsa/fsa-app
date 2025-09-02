@@ -20,18 +20,24 @@ export const api = axios.create({
 // таймаут для обновления заранее (например, за 30 сек до истечения)
 const REFRESH_THRESHOLD = 30 * 1000;
 
+// ====== Request interceptor ======
 api.interceptors.request.use(async (config) => {
     let token = getAccessToken();
     const expiresAt = getAccessExpiresAt();
 
-    if (token && expiresAt && Date.now() > expiresAt - REFRESH_THRESHOLD) {
-        // access почти протух → обновляем
-        token = await refreshAccessToken();
+    if (token && expiresAt) {
+        const now = Date.now();
+
+        // Если скоро протухнет — обновляем заранее
+        if (expiresAt - now < REFRESH_THRESHOLD) {
+            token = await refreshAccessToken();
+        }
     }
 
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
 });
 
@@ -60,7 +66,9 @@ api.interceptors.response.use(
                 return new Promise((resolve, reject) => {
                     failedQueue.push({ resolve, reject });
                 }).then((token) => {
-                    originalRequest.headers["Authorization"] = "Bearer " + token;
+                    if (token) {
+                        originalRequest.headers["Authorization"] = "Bearer " + token;
+                    }
                     return api(originalRequest);
                 });
             }
