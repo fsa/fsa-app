@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import { login, logout, getAccessToken } from "../api/auth";
 import type { Route } from "./+types/login";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     { title: "Вход" },
     { name: "description", content: "Войти!" },
@@ -31,10 +31,10 @@ export default function Home() {
 
   return (
     <div style={{ padding: 20 }}>
-      <h1>Вход</h1>
 
       {!getAccessToken() ? (
         <div>
+          <h1>Вход</h1>
           <input
             type="text"
             placeholder="Логин"
@@ -51,6 +51,7 @@ export default function Home() {
         </div>
       ) : (
         <div>
+          <h1>Выход</h1>
           <button onClick={handleLogout}>Выйти</button>
         </div>
       )}
