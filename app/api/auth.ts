@@ -58,14 +58,13 @@ export async function login(username: string, password: string) {
         { username, password },
         { withCredentials: true }
     );
-
     saveAccessToken(response.data.token);
 }
 
 export async function refreshAccessToken(): Promise<string | null> {
     try {
         const response = await authApi.post<AccessResponse>(
-            "/login_refresh",
+            "/token/refresh",
             {},
             { withCredentials: true }
         );
@@ -80,5 +79,5 @@ export async function refreshAccessToken(): Promise<string | null> {
 
 export function logout() {
     clearAccessToken();
-    authApi.post("/logout", {}, { withCredentials: true }).catch(() => { });
+    authApi.post("/token/invalidate", {}, { withCredentials: true }).catch(() => { });
 }
