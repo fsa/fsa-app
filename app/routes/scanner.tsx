@@ -2,6 +2,7 @@ import { Html5Qrcode } from "html5-qrcode";
 import { useState, useEffect } from "react";
 import "./scanner.css";
 import { api } from '../api/client';
+import { initSession } from "~/api/auth";
 
 function QrCodeScanner() {
   const [decodedResults, setDecodedResults] = useState('Сканируйте код');
@@ -14,6 +15,15 @@ function QrCodeScanner() {
 
   const [isEnabled, setEnabled] = useState(false);
   const [qrMessage, setQrMessage] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      const token = await initSession();
+      if (!token) {
+        window.location.href = "/login";  // редирект если токен невалиден
+      }
+    })();
+  }, []);
 
   let qrboxFunction = function (viewfinderWidth: number, viewfinderHeight: number) {
     let minEdgePercentage = 0.9;

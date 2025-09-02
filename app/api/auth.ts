@@ -4,6 +4,8 @@ import { jwtDecode } from "jwt-decode";
 const ACCESS_KEY = "access_token";
 const ACCESS_KEY_EXP = "access_token_exp";
 
+const REFRESH_THRESHOLD = 30000;
+
 interface AccessResponse {
     token: string;
 }
@@ -61,4 +63,33 @@ export async function refreshAccessToken(): Promise<string | null> {
 export function logout() {
     clearAccessToken();
     authApi.post("/token/invalidate", {}, { withCredentials: true }).catch(() => { });
+}
+
+export async function initSession(): Promise<string | null> {
+    const token = localStorage.getItem(ACCESS_KEY);
+    const expStr = localStorage.getItem(ACCESS_KEY_EXP);
+
+    if (!token || !expStr) {
+        return null;
+    }
+
+    const exp = parseInt(expStr, 10);
+    if (isNaN(exp)) {
+        return null;
+    }
+
+    const now = Date.now();
+
+    if (exp - now > REFRESH_THRESHOLD) {
+        return token;
+    }
+
+    // если осталось мало времени или токен истёк → обновляем
+    const newToken = await refreshAccessToken();
+    if (!newToken) {
+        clearAccessToken();
+        return null;
+    }
+
+    return newToken;
 }
