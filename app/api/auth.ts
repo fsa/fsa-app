@@ -37,15 +37,36 @@ export function saveAccessToken(token: string) {
 }
 
 export function getAccessToken(): string | null {
-    return localStorage.getItem(ACCESS_KEY);
+    const token = localStorage.getItem(ACCESS_KEY);
+    const expStr = localStorage.getItem(ACCESS_KEY_EXP);
+
+    if (!token || !expStr) {
+        return null;
+    }
+
+    const exp = parseInt(expStr, 10);
+    if (isNaN(exp)) {
+        return null;
+    }
+
+    if (Date.now() >= exp) {
+        clearAccessToken();
+        return null;
+    }
+
+    return token;
 }
 
 export function getAccessExpiresAt(): number | null {
-    return localStorage.getItem(ACCESS_KEY_EXP) as number | null;
+    const expStr = localStorage.getItem(ACCESS_KEY_EXP);
+    if (!expStr) return null;
+    const exp = parseInt(expStr, 10);
+    return isNaN(exp) ? null : exp;
 }
 
 export function clearAccessToken() {
     localStorage.removeItem(ACCESS_KEY);
+    localStorage.removeItem(ACCESS_KEY_EXP);
     if (refreshTimer) {
         clearTimeout(refreshTimer);
         refreshTimer = null;
