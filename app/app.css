@@ -53,10 +53,6 @@ header {
     }
 }
 
-main {
-    padding: 1rem;
-}
-
 .qr-scanner {
     display: flex;
     flex-direction: column;

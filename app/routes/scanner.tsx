@@ -4,6 +4,7 @@ import "./scanner.css";
 import { api } from '../api/client';
 import { initSession } from "~/api/auth";
 import type { Route } from "./+types/scanner";
+import Button from '@mui/material/Button';
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -88,7 +89,7 @@ function QrCodeScanner() {
     };
 
     if (isEnabled) {
-      html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccess, undefined );
+      html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccess, undefined);
       setQrMessage("");
     } else {
       qrScannerStop();
@@ -134,9 +135,9 @@ function QrCodeScanner() {
   return (
     <div className="scanner">
       <div>
-        <button className="start-button" onClick={() => setEnabled(!isEnabled)}>
+        <Button variant="contained" className="start-button" onClick={() => setEnabled(!isEnabled)}>
           {isEnabled ? "Выключить" : "Включить"}
-        </button>
+        </Button>
       </div>
       <div id="qrCodeContainer" />
       {qrMessage && <div className="qr-message">{qrMessage}</div>}
@@ -151,8 +152,8 @@ function QrCodeScanner() {
             cols={50}
           />
           <div className="edit-buttons">
-            <button onClick={handleSaveDescription}>Сохранить</button>
-            <button onClick={handleCancelEdit}>Отмена</button>
+            <Button variant="contained" onClick={handleSaveDescription}>Сохранить</Button>
+            <Button variant="contained" onClick={handleCancelEdit}>Отмена</Button>
           </div>
         </div>
       ) : (
@@ -160,7 +161,7 @@ function QrCodeScanner() {
           <p>{decodedResults}</p>
           <p>{description}</p>
           {editable && (
-            <button onClick={handleEditClick}>Редактировать описание</button>
+            <Button variant="contained" onClick={handleEditClick}>Редактировать описание</Button>
           )}
         </div>
       )}
