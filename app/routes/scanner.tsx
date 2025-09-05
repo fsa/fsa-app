@@ -3,6 +3,14 @@ import { useState, useEffect } from "react";
 import "./scanner.css";
 import { api } from '../api/client';
 import { initSession } from "~/api/auth";
+import type { Route } from "./+types/scanner";
+
+export function meta({ }: Route.MetaArgs) {
+  return [
+    { title: "Сканер" },
+    { name: "description", content: "Сканер QR-кодов" },
+  ];
+}
 
 function QrCodeScanner() {
   const [decodedResults, setDecodedResults] = useState('Сканируйте код');

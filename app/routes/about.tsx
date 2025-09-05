@@ -3,7 +3,7 @@ import type { Route } from "./+types/about";
 
 export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "FSA" },
+    { title: "О приложении" },
     { name: "description", content: "Добро пожаловать в приложение FSA!" },
   ];
 }
