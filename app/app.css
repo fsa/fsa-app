@@ -18,41 +18,6 @@ html, body {
     padding: 0;
 }
 
-header {
-    padding: 1rem;
-
-    ul.header-menu {
-        display: flex;
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        gap: 0.5rem;
-        text-transform: uppercase;
-        font-weight: bold;
-    }
-
-    li {
-        padding: 1rem;
-        background-color: var(--primary);
-        border-radius: 1rem;
-        text-align: center;
-        align-content: center;
-    }
-
-    a {
-        color: var(--light);
-        text-decoration: none;
-    }
-
-    a:visited {
-        color: var(--light);
-    }
-
-    a:hover {
-        color: var(--info);
-    }
-}
-
 .qr-scanner {
     display: flex;
     flex-direction: column;

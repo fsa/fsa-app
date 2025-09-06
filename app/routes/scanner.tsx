@@ -5,6 +5,7 @@ import { api } from '../api/client';
 import { initSession } from "~/api/auth";
 import type { Route } from "./+types/scanner";
 import Button from '@mui/material/Button';
+import { Container } from "@mui/material";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -133,7 +134,7 @@ function QrCodeScanner() {
   };
 
   return (
-    <div className="scanner">
+    <Container>
       <div>
         <Button variant="contained" className="start-button" onClick={() => setEnabled(!isEnabled)}>
           {isEnabled ? "Выключить" : "Включить"}
@@ -165,7 +166,7 @@ function QrCodeScanner() {
           )}
         </div>
       )}
-    </div>
+    </Container>
   );
 }
 

@@ -1,5 +1,6 @@
 import ProtectedRoute from "~/components/ProtectedRoute";
 import type { Route } from "./+types/about";
+import { Container } from "@mui/material";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -11,10 +12,10 @@ export function meta({ }: Route.MetaArgs) {
 export default function About() {
   return (
     <ProtectedRoute>
-      <main>
+      <Container>
         <h1>О сайте!</h1>
         <p>Это просто демонстрационный сайт на React.</p>
-      </main>
+      </Container>
     </ProtectedRoute>
   )
 }

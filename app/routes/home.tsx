@@ -1,6 +1,7 @@
+import { Container, Typography } from "@mui/material";
 import type { Route } from "./+types/home";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
     { title: "FSA" },
     { name: "description", content: "Добро пожаловать в приложение FSA!" },
@@ -8,5 +9,9 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  return <main><div>Welcome!</div></main>;
+  return (
+    <Container>
+      <Typography>Welcome!</Typography>
+    </Container>
+  );
 }
