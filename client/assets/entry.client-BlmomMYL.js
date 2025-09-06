@@ -1,0 +1,1 @@
+import{r as t,j as r}from"./react-BJrjMfTR.js";import{c as o}from"./react-dom-DxwqsWSf.js";import{H as s}from"./react-router-CYoDxXBS.js";import"./hoist-non-react-statics-D6oLcdvU.js";import"./scheduler-Bb8JjhAW.js";t.startTransition(()=>{o.hydrateRoot(document,r.jsx(t.StrictMode,{children:r.jsx(s,{})}))});
