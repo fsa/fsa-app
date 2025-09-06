@@ -5,7 +5,7 @@ import { api } from '../api/client';
 import { initSession } from "~/api/auth";
 import type { Route } from "./+types/scanner";
 import Button from '@mui/material/Button';
-import { Container } from "@mui/material";
+import { Container, Paper } from "@mui/material";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -134,38 +134,38 @@ function QrCodeScanner() {
   };
 
   return (
-    <Container>
-      <div>
-        <Button variant="contained" className="start-button" onClick={() => setEnabled(!isEnabled)}>
+    <Container maxWidth="xs">
+      <Paper sx={{ margin: 8, padding: 2, width: 300 }}>
+        <Button variant="contained" className="start-button" onClick={() => setEnabled(!isEnabled)} fullWidth>
           {isEnabled ? "Выключить" : "Включить"}
         </Button>
-      </div>
-      <div id="qrCodeContainer" />
-      {qrMessage && <div className="qr-message">{qrMessage}</div>}
-      {errorMessage && <div className="qr-error-message">{errorMessage}</div>}
-      {editMode ? (
-        <div className="edit-form">
-          <p>{decodedResults}</p>
-          <textarea
-            value={editedDescription}
-            onChange={handleDescriptionChange}
-            rows={4}
-            cols={50}
-          />
-          <div className="edit-buttons">
-            <Button variant="contained" onClick={handleSaveDescription}>Сохранить</Button>
-            <Button variant="contained" onClick={handleCancelEdit}>Отмена</Button>
+        <div id="qrCodeContainer" />
+        {qrMessage && <div className="qr-message">{qrMessage}</div>}
+        {errorMessage && <div className="qr-error-message">{errorMessage}</div>}
+        {editMode ? (
+          <div className="edit-form">
+            <p>{decodedResults}</p>
+            <textarea
+              value={editedDescription}
+              onChange={handleDescriptionChange}
+              rows={4}
+              cols={50}
+            />
+            <div className="edit-buttons">
+              <Button variant="contained" onClick={handleSaveDescription}>Сохранить</Button>
+              <Button variant="contained" onClick={handleCancelEdit}>Отмена</Button>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="result-display">
-          <p>{decodedResults}</p>
-          <p>{description}</p>
-          {editable && (
-            <Button variant="contained" onClick={handleEditClick}>Редактировать описание</Button>
-          )}
-        </div>
-      )}
+        ) : (
+          <div className="result-display">
+            <p>{decodedResults}</p>
+            <p>{description}</p>
+            {editable && (
+              <Button variant="contained" onClick={handleEditClick}>Редактировать описание</Button>
+            )}
+          </div>
+        )}
+      </Paper>
     </Container>
   );
 }
