@@ -141,7 +141,7 @@ function QrCodeScanner() {
   }
 
   return (
-    <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <div id="qrCodeContainer" style={{ display: isEnabled ? 'block' : 'none' }} />
       {qrMessage && <div className="qr-message">{qrMessage}</div>}
       <Button variant="contained" className="start-button" onClick={handleEnableScanner} fullWidth>

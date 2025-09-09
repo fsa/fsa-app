@@ -4,8 +4,8 @@ import React from "react";
 import { Link, NavLink } from "react-router";
 
 const pages = [
-    { 'title': 'Сканер', 'path': '/scanner' },
-    { 'title': 'О сайте', 'path': '/about' }
+    { 'title': 'Сериалы', 'path': '/movie' },
+    { 'title': 'Сканер', 'path': '/scanner' }
 ];
 const settings = ['Login'];
 
