@@ -15,7 +15,7 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 function QrCodeScanner() {
-  const [decodedResults, setDecodedResults] = useState('Сканируйте код');
+  const [decodedResults, setDecodedResults] = useState();
   const [editable, setEditable] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [codeId, setCodeId] = useState(null);
@@ -60,7 +60,6 @@ function QrCodeScanner() {
     };
 
     const qrCodeSuccess = (decodedText: string, decodedResult: any) => {
-      setQrMessage(decodedText);
       setErrorMessage('Отправка кода на сервер...')
       api.post('/scan',
         {
@@ -87,11 +86,12 @@ function QrCodeScanner() {
       }
       );
       setEnabled(false);
+      setQrMessage(decodedText);
     };
 
     if (isEnabled) {
       html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccess, undefined);
-      setQrMessage("");
+      setQrMessage("Сканируйте код");
     } else {
       qrScannerStop();
     }
@@ -133,13 +133,20 @@ function QrCodeScanner() {
     setEditMode(false);
   };
 
+  const handleEnableScanner = () => {
+    if (isEnabled) {
+      setQrMessage('');
+    }
+    setEnabled(!isEnabled);
+  }
+
   return (
     <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <Button variant="contained" className="start-button" onClick={() => setEnabled(!isEnabled)} fullWidth>
+      <div id="qrCodeContainer" style={{ display: isEnabled ? 'block' : 'none' }} />
+      {qrMessage && <div className="qr-message">{qrMessage}</div>}
+      <Button variant="contained" className="start-button" onClick={handleEnableScanner} fullWidth>
         {isEnabled ? "Выключить" : "Включить"}
       </Button>
-      <div id="qrCodeContainer" />
-      {qrMessage && <div className="qr-message">{qrMessage}</div>}
       {errorMessage && <div className="qr-error-message">{errorMessage}</div>}
       {editMode ? (
         <div className="edit-form">
