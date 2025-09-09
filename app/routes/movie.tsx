@@ -14,9 +14,6 @@ export default function Movie() {
   return (
     <ProtectedRoute>
       <Container maxWidth="lg">
-        <Typography variant="h1" component="h1" gutterBottom>
-          Сериалы
-        </Typography>
         <MovieList />
       </Container>
     </ProtectedRoute>

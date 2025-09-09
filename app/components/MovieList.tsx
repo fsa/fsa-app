@@ -1,5 +1,6 @@
-import { Alert, Avatar, CircularProgress, Container, List, ListItem, ListItemAvatar, ListItemText, Typography } from "@mui/material";
+import { Alert, Avatar, Card, CardContent, CircularProgress, List, ListItemAvatar, ListItemButton, ListItemText, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import { api } from "~/api/client";
 
 interface Movie {
@@ -30,22 +31,27 @@ const MovieList = () => {
 
     return (
         <>
-            <Container>
-                <List>
-                    {movieList && movieList.map((movie) => (
-                        <ListItem key={movie.id} divider>
-                            <ListItemAvatar>
-                                <Avatar alt={movie.name}>
-                                    {movie.name[0]}
-                                </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText primary={movie.name} secondary={`ID: ${movie.id}`} />
-                        </ListItem>
-                    ))}
-                    {loading && <CircularProgress />} 
-                    {error && <Alert severity="error">{error}</Alert>}
-                </List>
-            </Container>
+            <Card>
+                <CardContent>
+                    <Typography variant="h1" component="h1" gutterBottom>
+                        Сериалы
+                    </Typography>
+                    <List>
+                        {movieList && movieList.map((movie) => (
+                            <ListItemButton key={movie.id} component={Link} to={`/movie/${movie.url}`}>
+                                <ListItemAvatar>
+                                    <Avatar alt={movie.name}>
+                                        {movie.name[0]}
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary={movie.name} secondary={`ID: ${movie.url}`} />
+                            </ListItemButton>
+                        ))}
+                        {loading && <CircularProgress />}
+                        {error && <Alert severity="error">{error}</Alert>}
+                    </List>
+                </CardContent>
+            </Card>
         </>
     );
 }
