@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router';
-import { login, logout, getAccessToken } from "../api/auth";
+import { login, logout, getAccessToken } from "~/services/auth";
 import type { Route } from "./+types/login";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';

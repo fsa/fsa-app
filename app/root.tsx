@@ -14,7 +14,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { Container } from "@mui/material";
+import { Box, CircularProgress, Container } from "@mui/material";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -63,7 +63,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <Header />
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -107,8 +106,13 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
 export function HydrateFallback() {
   return (
-    <Container>
-      <h1>Загрузка...</h1>
-    </Container>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      minHeight="100vh" // на всю высоту экрана
+    >
+      <CircularProgress />
+    </Box>
   )
 }

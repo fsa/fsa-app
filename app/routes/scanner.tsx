@@ -1,11 +1,10 @@
 import { Html5Qrcode } from "html5-qrcode";
 import { useState, useEffect } from "react";
 import "./scanner.css";
-import { api } from '../api/client';
-import { initSession } from "~/api/auth";
+import { api } from '../services/api';
 import type { Route } from "./+types/scanner";
 import Button from '@mui/material/Button';
-import { Container, Paper } from "@mui/material";
+import { Card, CardContent, CardHeader, Container, Paper } from "@mui/material";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -25,15 +24,6 @@ function QrCodeScanner() {
 
   const [isEnabled, setEnabled] = useState(false);
   const [qrMessage, setQrMessage] = useState("");
-
-  useEffect(() => {
-    (async () => {
-      const token = await initSession();
-      if (!token) {
-        window.location.href = "/login";  // редирект если токен невалиден
-      }
-    })();
-  }, []);
 
   let qrboxFunction = function (viewfinderWidth: number, viewfinderHeight: number) {
     let minEdgePercentage = 0.9;
@@ -141,37 +131,42 @@ function QrCodeScanner() {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div id="qrCodeContainer" style={{ display: isEnabled ? 'block' : 'none' }} />
-      {qrMessage && <div className="qr-message">{qrMessage}</div>}
-      <Button variant="contained" className="start-button" onClick={handleEnableScanner} fullWidth>
-        {isEnabled ? "Выключить" : "Включить"}
-      </Button>
-      {errorMessage && <div className="qr-error-message">{errorMessage}</div>}
-      {editMode ? (
-        <div className="edit-form">
-          <p>{decodedResults}</p>
-          <textarea
-            value={editedDescription}
-            onChange={handleDescriptionChange}
-            rows={4}
-            cols={50}
-          />
-          <div className="edit-buttons">
-            <Button variant="contained" onClick={handleSaveDescription}>Сохранить</Button>
-            <Button variant="contained" onClick={handleCancelEdit}>Отмена</Button>
-          </div>
-        </div>
-      ) : (
-        <div className="result-display">
-          <p>{decodedResults}</p>
-          <p>{description}</p>
-          {editable && (
-            <Button variant="contained" onClick={handleEditClick}>Редактировать описание</Button>
+    <Card>
+      <CardHeader
+        title="Сканер"
+      />
+      <CardContent>
+          <div id="qrCodeContainer" style={{ display: isEnabled ? 'block' : 'none' }} />
+          {qrMessage && <div className="qr-message">{qrMessage}</div>}
+          <Button variant="contained" className="start-button" onClick={handleEnableScanner} fullWidth>
+            {isEnabled ? "Выключить" : "Включить"}
+          </Button>
+          {errorMessage && <div className="qr-error-message">{errorMessage}</div>}
+          {editMode ? (
+            <div className="edit-form">
+              <p>{decodedResults}</p>
+              <textarea
+                value={editedDescription}
+                onChange={handleDescriptionChange}
+                rows={4}
+                cols={50}
+              />
+              <div className="edit-buttons">
+                <Button variant="contained" onClick={handleSaveDescription}>Сохранить</Button>
+                <Button variant="contained" onClick={handleCancelEdit}>Отмена</Button>
+              </div>
+            </div>
+          ) : (
+            <div className="result-display">
+              <p>{decodedResults}</p>
+              <p>{description}</p>
+              {editable && (
+                <Button variant="contained" onClick={handleEditClick}>Редактировать описание</Button>
+              )}
+            </div>
           )}
-        </div>
-      )}
-    </Container>
+      </CardContent>
+    </Card>
   );
 }
 

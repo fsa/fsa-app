@@ -1,7 +1,7 @@
-import { Alert, Avatar, Card, CardContent, CircularProgress, List, ListItemAvatar, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { Alert, Avatar, Card, CardContent, CardHeader, CircularProgress, List, ListItemAvatar, ListItemButton, ListItemText, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { api } from "~/api/client";
+import { api } from "~/services/api";
 
 interface Movie {
   id: number,
@@ -32,10 +32,10 @@ const MovieList = () => {
   return (
     <>
       <Card>
+        <CardHeader
+          title="Сериалы"
+          />
         <CardContent>
-          <Typography gutterBottom>
-            Сериалы
-          </Typography>
           <List>
             {movieList && movieList.map((movie) => (
               <ListItemButton key={movie.id} component={Link} to={`/movie/${movie.url}`}>
