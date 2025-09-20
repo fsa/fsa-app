@@ -9,12 +9,11 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import Header from "./header";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { Box, CircularProgress, Container } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -59,6 +58,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#1976d2" />
         <Meta />
         <Links />
       </head>
