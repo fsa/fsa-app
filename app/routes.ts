@@ -6,5 +6,6 @@ export default [
     index("routes/home.tsx"),
     route('/scanner', 'routes/scanner.tsx'),
     route('/movie', 'routes/movie.tsx'),
+    route('/goods', 'routes/goods.tsx'),
   ]),
 ] satisfies RouteConfig;
