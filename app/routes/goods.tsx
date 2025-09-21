@@ -5,6 +5,14 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { CircularProgress } from "@mui/material";
 import { api } from "~/services/api";
+import type { Route } from "./+types/goods";
+
+export function meta({ }: Route.MetaArgs) {
+  return [
+    { title: "Товары" },
+    { name: "description", content: "Список товаров" },
+  ];
+}
 
 interface TreeNode {
   id: string;
