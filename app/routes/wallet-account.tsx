@@ -17,6 +17,9 @@ interface Entry {
   operation: {
     id: number;
     name: string;
+    description: string;
+    operation_at: string;
+    created_at: string;
   };
 }
 
@@ -36,10 +39,45 @@ const entryColumns: GridColDef[] = [
         color={params.value < 0 ? "error.main" : "success.main"}
         fontWeight="bold"
       >
-        {params.value.toLocaleString()} ₽
+        {params.value.toLocaleString('ru-RU')} ₽
       </Typography>
     ),
-  }
+  },
+  {
+    field: "info",
+    headerName: "Инфо",
+    flex: 1.5,
+    renderCell: (params) => (
+      <Typography variant="body2">
+        {params.value || "-"}
+      </Typography>
+    ),
+  },
+  {
+    field: "operationAt",
+    headerName: "Дата операции",
+    flex: 1.2,
+    valueFormatter: (params: any) => {
+      if (!params) return "-";
+      return new Date(params).toLocaleString('ru-RU');
+    },
+  },
+  {
+    field: "createdAt",
+    headerName: "Дата создания",
+    flex: 1.2,
+    valueFormatter: (params: any) => {
+      if (!params) return "-";
+      return new Date(params).toLocaleString('ru-RU');
+    },
+  },
+  {
+    field: "transactionId",
+    headerName: "ID транзакции",
+    width: 120,
+    align: "center",
+    headerAlign: "center",
+  },
 ];
 
 export default function WalletAccountPage() {
@@ -68,6 +106,16 @@ export default function WalletAccountPage() {
 
   const { account, entries } = data;
 
+  // Преобразуем данные для таблицы - извлекаем нужные поля из operation
+  const tableRows = entries.map(entry => ({
+    id: entry.id,
+    amount: entry.amount,
+    info: entry.operation?.description || "",
+    operationAt: entry.operation?.operation_at || "",
+    createdAt: entry.operation?.created_at || "",
+    transactionId: entry.operation?.id || 0
+  }));
+
   return (
     <Box display="flex" flexDirection="column" gap={3}>
       {/* 🔹 Карточка с информацией об аккаунте */}
@@ -81,7 +129,7 @@ export default function WalletAccountPage() {
             fontWeight="bold"
             variant="h6"
           >
-            {account.balance.toLocaleString()} ₽
+            {account.balance.toLocaleString('ru-RU')} ₽
           </Typography>
           {account.description && (
             <Typography variant="body2" color="text.secondary" mt={1}>
@@ -93,11 +141,20 @@ export default function WalletAccountPage() {
 
       {/* 🔹 Таблица с движением средств */}
       <Typography variant="h6">История операций</Typography>
-      <div style={{ height: 500, width: "100%" }}>
+      <div style={{ height: 600, width: "100%" }}>
         <DataGrid
-          rows={entries}
+          rows={tableRows}
           columns={entryColumns}
           getRowId={(row) => row.id}
+          pageSizeOptions={[10, 25, 50]}
+          initialState={{
+            pagination: {
+              paginationModel: { page: 0, pageSize: 10 },
+            },
+            sorting: {
+              sortModel: [{ field: 'operationDate', sort: 'desc' }],
+            },
+          }}
         />
       </div>
     </Box>

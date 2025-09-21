@@ -17,7 +17,7 @@ const WalletAccountList = () => {
 
   useEffect(() => {
     setLoading(true);
-    api.post<Account[]>('/wallet/account', {})
+    api.get<Account[]>('/wallet/account', {})
       .then((response) => {
         setAccountList(response.data);
         setError(null);
