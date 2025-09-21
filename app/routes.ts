@@ -7,5 +7,7 @@ export default [
     route('/scanner', 'routes/scanner.tsx'),
     route('/movie', 'routes/movie.tsx'),
     route('/goods', 'routes/goods.tsx'),
+    route('/wallet', 'routes/wallet.tsx'),
+    route("/wallet/account/:id", "routes/wallet-account.tsx"),
   ]),
 ] satisfies RouteConfig;

@@ -2,6 +2,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import WalletIcon from '@mui/icons-material/Wallet';
 
 export type MenuEntry =
   | {
@@ -19,4 +20,5 @@ export const menuConfig: MenuEntry[] = [
   { type: "item", title: "Сериалы", path: "/movie", icon: <LocalMoviesIcon /> },
   { type: "item", title: "Сканер", path: "/scanner", icon: <QrCode2Icon /> },
   { type: "item", title: "Товары", path: "/goods", icon: <ShoppingCartIcon /> },
+  { type: "item", title: "Кошелёк", path: "/wallet", icon: <WalletIcon /> },
 ];
