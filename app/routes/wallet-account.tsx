@@ -38,17 +38,33 @@ const entryColumns: GridColDef[] = [
       <Typography
         color={params.value < 0 ? "error.main" : "success.main"}
         fontWeight="bold"
+        variant="body2"
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'end',
+          height: '100%',
+          lineHeight: 'normal'
+        }}
       >
         {params.value.toLocaleString('ru-RU')} ₽
       </Typography>
     ),
   },
   {
-    field: "info",
-    headerName: "Инфо",
+    field: "description",
+    headerName: "Описание",
     flex: 1.5,
     renderCell: (params) => (
-      <Typography variant="body2">
+      <Typography
+        variant="body2"
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          height: '100%',
+          lineHeight: 'normal'
+        }}
+      >
         {params.value || "-"}
       </Typography>
     ),
@@ -110,7 +126,7 @@ export default function WalletAccountPage() {
   const tableRows = entries.map(entry => ({
     id: entry.id,
     amount: entry.amount,
-    info: entry.operation?.description || "",
+    description: entry.operation?.description || "",
     operationAt: entry.operation?.operation_at || "",
     createdAt: entry.operation?.created_at || "",
     transactionId: entry.operation?.id || 0
@@ -146,13 +162,10 @@ export default function WalletAccountPage() {
           rows={tableRows}
           columns={entryColumns}
           getRowId={(row) => row.id}
-          pageSizeOptions={[10, 25, 50]}
+          pageSizeOptions={[25, 50, 100, 500]}
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-            sorting: {
-              sortModel: [{ field: 'operationDate', sort: 'desc' }],
+              paginationModel: { page: 0, pageSize: 25 },
             },
           }}
         />
