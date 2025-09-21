@@ -162,7 +162,7 @@ export default function WalletAccountPage() {
           rows={tableRows}
           columns={entryColumns}
           getRowId={(row) => row.id}
-          pageSizeOptions={[25, 50, 100, 500]}
+          pageSizeOptions={[25, 50, 100]}
           initialState={{
             pagination: {
               paginationModel: { page: 0, pageSize: 25 },
