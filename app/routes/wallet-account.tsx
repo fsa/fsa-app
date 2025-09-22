@@ -3,6 +3,14 @@ import { useParams } from "react-router";
 import { Box, Typography, Card, CardContent } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { api } from "~/services/api";
+import type { Route } from "./+types/wallet-account";
+
+export function meta({ }: Route.MetaArgs) {
+  return [
+    { title: "Аккаунт" },
+    { name: "description", content: "Движение средств по аккаунту" },
+  ];
+}
 
 interface Account {
   id: number;
@@ -109,6 +117,7 @@ export default function WalletAccountPage() {
       .then((response) => {
         setData(response.data);
         setError(null);
+        document.title = `Аккаунт: ${response.data.account.name}`;
       })
       .catch((err) => {
         setError("Ошибка при загрузке данных счёта: " + err);
