@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Box, Typography, Card, CardContent, CircularProgress } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  CircularProgress,
+  Button,
+} from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { api } from "~/services/api";
+import WalletTransactionForm from "~/components/WalletTransactionForm";
 import type { Route } from "./+types/wallet-account";
 
 export function meta({ }: Route.MetaArgs) {
@@ -109,6 +117,8 @@ export default function WalletAccountPage() {
   const [data, setData] = useState<AccountResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [reloadKey, setReloadKey] = useState(Date.now());
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -123,15 +133,14 @@ export default function WalletAccountPage() {
         setError("Ошибка при загрузке данных счёта: " + err);
       })
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, reloadKey]);
 
-  if (loading) return <CircularProgress size = { 24 } />;
+  if (loading) return <CircularProgress size={24} />;
   if (error) return <Typography color="error">{error}</Typography>;
   if (!data) return <Typography>Нет данных</Typography>;
 
   const { account, entries } = data;
 
-  // Преобразуем данные для таблицы - извлекаем нужные поля из operation
   const tableRows = entries.map(entry => ({
     id: entry.id,
     amount: entry.amount,
@@ -143,42 +152,69 @@ export default function WalletAccountPage() {
 
   return (
     <Box display="flex" flexDirection="column" gap={3}>
-      {/* 🔹 Карточка с информацией об аккаунте */}
-      <Card variant="outlined">
-        <CardContent>
-          <Typography variant="h5" gutterBottom>
-            {account.name}
-          </Typography>
-          <Typography
-            color={account.balance < 0 ? "error.main" : "success.main"}
-            fontWeight="bold"
-            variant="h6"
-          >
-            {account.balance.toLocaleString('ru-RU')} ₽
-          </Typography>
-          {account.description && (
-            <Typography variant="body2" color="text.secondary" mt={1}>
-              {account.description}
+      {showForm ? (
+        <Card variant="outlined">
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Новая транзакция
             </Typography>
-          )}
-        </CardContent>
-      </Card>
+            <WalletTransactionForm
+              accountId={account.id}
+              onCreated={() => {
+                setReloadKey(Date.now());
+                setShowForm(false);
+              }}
+              onCancel={() => setShowForm(false)}
+            />
+          </CardContent>
+        </Card>
+      ) : (
+        <>
+          {/* 🔹 Карточка аккаунта */}
+          <Card variant="outlined">
+            <CardContent>
+              <Typography variant="h5" gutterBottom>
+                {account.name}
+              </Typography>
+              <Typography
+                color={account.balance < 0 ? "error.main" : "success.main"}
+                fontWeight="bold"
+                variant="h6"
+              >
+                {account.balance.toLocaleString("ru-RU")} ₽
+              </Typography>
+              {account.description && (
+                <Typography variant="body2" color="text.secondary" mt={1}>
+                  {account.description}
+                </Typography>
+              )}
+            </CardContent>
+          </Card>
 
-      {/* 🔹 Таблица с движением средств */}
-      <Typography variant="h6">История операций</Typography>
-      <div style={{ height: 600, width: "100%" }}>
-        <DataGrid
-          rows={tableRows}
-          columns={entryColumns}
-          getRowId={(row) => row.id}
-          pageSizeOptions={[25, 50, 100]}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 25 },
-            },
-          }}
-        />
-      </div>
+          {/* 🔹 Кнопка создания транзакции */}
+          <Box display="flex" justifyContent="flex-end">
+            <Button variant="contained" onClick={() => setShowForm(true)}>
+              Добавить транзакцию
+            </Button>
+          </Box>
+
+          {/* 🔹 Таблица операций */}
+          <Typography variant="h6">История операций</Typography>
+          <div style={{ height: 600, width: "100%" }}>
+            <DataGrid
+              rows={tableRows}
+              columns={entryColumns}
+              getRowId={(row) => row.id}
+              pageSizeOptions={[25, 50, 100]}
+              initialState={{
+                pagination: {
+                  paginationModel: { page: 0, pageSize: 25 },
+                },
+              }}
+            />
+          </div>
+        </>
+      )}
     </Box>
   );
 }
