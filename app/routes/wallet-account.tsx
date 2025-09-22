@@ -152,6 +152,27 @@ export default function WalletAccountPage() {
 
   return (
     <Box display="flex" flexDirection="column" gap={3}>
+      {/* 🔹 Карточка аккаунта */}
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h5" gutterBottom>
+            {account.name}
+          </Typography>
+          <Typography
+            color={account.balance < 0 ? "error.main" : "success.main"}
+            fontWeight="bold"
+            variant="h6"
+          >
+            {account.balance.toLocaleString("ru-RU")} ₽
+          </Typography>
+          {account.description && (
+            <Typography variant="body2" color="text.secondary" mt={1}>
+              {account.description}
+            </Typography>
+          )}
+        </CardContent>
+      </Card>
+
       {showForm ? (
         <Card variant="outlined">
           <CardContent>
@@ -170,27 +191,6 @@ export default function WalletAccountPage() {
         </Card>
       ) : (
         <>
-          {/* 🔹 Карточка аккаунта */}
-          <Card variant="outlined">
-            <CardContent>
-              <Typography variant="h5" gutterBottom>
-                {account.name}
-              </Typography>
-              <Typography
-                color={account.balance < 0 ? "error.main" : "success.main"}
-                fontWeight="bold"
-                variant="h6"
-              >
-                {account.balance.toLocaleString("ru-RU")} ₽
-              </Typography>
-              {account.description && (
-                <Typography variant="body2" color="text.secondary" mt={1}>
-                  {account.description}
-                </Typography>
-              )}
-            </CardContent>
-          </Card>
-
           {/* 🔹 Кнопка создания транзакции */}
           <Box display="flex" justifyContent="flex-end">
             <Button variant="contained" onClick={() => setShowForm(true)}>

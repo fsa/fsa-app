@@ -22,16 +22,15 @@ export default function WalletTransactionForm({ accountId, onCreated, onCancel }
     setError(null);
 
     try {
-      let operation_at: string | null = null;
+      let operationAt: string | null = null;
       if (date) {
-        operation_at = date + (time ? `T${time}:00`: 'T00:00:00');
+        operationAt = date + (time ? `T${time}:00`: 'T00:00:00');
       }
 
       await api.put(`/wallet/account/${accountId}/entry`, {
-        accountId: accountId,
         amount: parseFloat(amount),
         description: description || null,
-        operation_at,
+        operationAt,
       });
 
       setAmount("");
