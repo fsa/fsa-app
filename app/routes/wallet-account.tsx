@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Box, Typography, Card, CardContent } from "@mui/material";
+import { Box, Typography, Card, CardContent, CircularProgress } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { api } from "~/services/api";
 import type { Route } from "./+types/wallet-account";
@@ -125,7 +125,7 @@ export default function WalletAccountPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <Typography>Загрузка...</Typography>;
+  if (loading) return <CircularProgress size = { 24 } />;
   if (error) return <Typography color="error">{error}</Typography>;
   if (!data) return <Typography>Нет данных</Typography>;
 

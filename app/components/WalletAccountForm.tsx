@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, TextField, Typography } from "@mui/material";
 import { api } from "~/services/api";
 
 interface Props {
@@ -56,7 +56,7 @@ const WalletAccountForm = ({ onCreated, onCancel }: Props) => {
 
       <Box display="flex" gap={2}>
         <Button type="submit" variant="contained" disabled={loading}>
-          {loading ? "Создание..." : "Создать"}
+          {loading ? <CircularProgress size={24} /> : "Сохранить"}
         </Button>
         <Button
           variant="outlined"
