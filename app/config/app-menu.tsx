@@ -19,6 +19,7 @@ export const menuConfig: MenuEntry[] = [
   { type: "item", title: "Главная", path: "/", icon: <HomeIcon /> },
   { type: "item", title: "Сериалы", path: "/movie", icon: <LocalMoviesIcon /> },
   { type: "item", title: "Сканер", path: "/scanner", icon: <QrCode2Icon /> },
+  { type: "item", title: "Сканер (новый)", path: "/scanner2", icon: <QrCode2Icon /> },
   { type: "item", title: "Товары", path: "/goods", icon: <ShoppingCartIcon /> },
   { type: "item", title: "Кошелёк", path: "/wallet", icon: <WalletIcon /> },
 ];

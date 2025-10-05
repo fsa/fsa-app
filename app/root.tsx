@@ -14,6 +14,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Box, CircularProgress } from "@mui/material";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -52,6 +53,8 @@ export const links: Route.LinksFunction = () => [
   }
 ];
 
+const queryClient = new QueryClient();
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru">
@@ -63,7 +66,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
+        <QueryClientProvider client={queryClient}>
         {children}
+        </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
