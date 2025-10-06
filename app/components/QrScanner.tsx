@@ -8,7 +8,7 @@ import type { QrCodeRegister } from '~/services/qrCodeService';
 
 function QrScanner() {
   const [decodedResults, setDecodedResults] = useState('');
-  const [qrCodeDescription, setQrCodeDescription] = useState<QrCodeRegister>();
+  const [qrCodeDescription, setQrCodeDescription] = useState<QrCodeRegister|null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const { mutate } = useNewQrCode();
 
@@ -17,6 +17,7 @@ function QrScanner() {
     const format_name = result[0].format;
 
     setDecodedResults(text);
+    setQrCodeDescription(null);
 
     mutate(
       { text, format_name },
