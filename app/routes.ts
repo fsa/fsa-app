@@ -5,7 +5,6 @@ export default [
   route("/", "components/app-layout.tsx", [
     index("routes/home.tsx"),
     route('/scanner', 'routes/scanner.tsx'),
-    route('/scanner2', 'routes/scanner2.tsx'),
     route('/movie', 'routes/movie.tsx'),
     route('/goods', 'routes/goods.tsx'),
     route('/wallet', 'routes/wallet.tsx'),
