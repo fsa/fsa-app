@@ -3,7 +3,11 @@ import { SimpleTreeView } from "@mui/x-tree-view/SimpleTreeView";
 import { TreeItem } from "@mui/x-tree-view/TreeItem";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { CircularProgress } from "@mui/material";
+import FolderIcon from "@mui/icons-material/Folder";
+import FolderOpenIcon from "@mui/icons-material/FolderOpen";
+import DescriptionIcon from "@mui/icons-material/Description";
+import { CircularProgress, Stack, useTheme } from "@mui/material";
+import { motion, AnimatePresence } from "framer-motion";
 import type { TreeNode } from "~/services/goodsService";
 import { useGoodsTree } from "~/hooks/useGoodsTree";
 
@@ -14,11 +18,52 @@ function TreeNodeComponent({
   node: TreeNode;
   expandedItems: string[];
 }) {
+  const theme = useTheme();
   const isExpanded = expandedItems.includes(node.id);
   const query = useGoodsTree(Number(node.id), isExpanded);
 
+  const isFolder = node.hasChildren;
+  const iconColor = theme.palette.primary.light;
+
   return (
-    <TreeItem itemId={String(node.id)} label={node.name}>
+    <TreeItem
+      itemId={String(node.id)}
+      label={
+        <Stack direction="row" spacing={1.4} alignItems="center">
+          {isFolder ? (
+            <AnimatePresence mode="wait" initial={false}>
+              {isExpanded ? (
+                <motion.div
+                  key="open"
+                  initial={{ rotate: -15, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 15, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <FolderOpenIcon fontSize="medium" sx={{ color: iconColor }} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="closed"
+                  initial={{ rotate: 15, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -15, opacity: 0 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <FolderIcon fontSize="medium" sx={{ color: iconColor }} />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          ) : (
+            <DescriptionIcon
+              fontSize="medium"
+              sx={{ color: theme.palette.text.secondary }}
+            />
+          )}
+          <span>{node.name}</span>
+        </Stack>
+      }
+    >
       {/* Загруженные дети */}
       {isExpanded &&
         query.data?.map((childNode) => (
