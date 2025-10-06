@@ -5,7 +5,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import FolderIcon from "@mui/icons-material/Folder";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
-import DescriptionIcon from "@mui/icons-material/Description";
+import ShoppingCartOutlined from "@mui/icons-material/ShoppingCartOutlined";
 import { CircularProgress, Stack, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import type { TreeNode } from "~/services/goodsService";
@@ -55,7 +55,7 @@ function TreeNodeComponent({
               )}
             </AnimatePresence>
           ) : (
-            <DescriptionIcon
+            <ShoppingCartOutlined
               fontSize="medium"
               sx={{ color: theme.palette.text.secondary }}
             />
