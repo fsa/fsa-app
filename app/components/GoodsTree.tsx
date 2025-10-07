@@ -6,7 +6,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import FolderIcon from "@mui/icons-material/Folder";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import ShoppingCartOutlined from "@mui/icons-material/ShoppingCartOutlined";
-import { CircularProgress, Stack, useTheme } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { CircularProgress, IconButton, Stack, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import type { TreeNode } from "~/services/goodsService";
 import { useGoodsTree } from "~/hooks/useGoodsTree";
@@ -40,7 +41,7 @@ function TreeNodeComponent({
                   exit={{ rotate: 15, opacity: 0 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <FolderOpenIcon fontSize="medium" sx={{ color: iconColor }} />
+                  <FolderOpenIcon fontSize="large" sx={{ color: iconColor }} />
                 </motion.div>
               ) : (
                 <motion.div
@@ -50,17 +51,34 @@ function TreeNodeComponent({
                   exit={{ rotate: -15, opacity: 0 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <FolderIcon fontSize="medium" sx={{ color: iconColor }} />
+                  <FolderIcon fontSize="large" sx={{ color: iconColor }} />
                 </motion.div>
               )}
             </AnimatePresence>
           ) : (
             <ShoppingCartOutlined
-              fontSize="medium"
+              fontSize="large"
               sx={{ color: theme.palette.text.secondary }}
             />
           )}
           <span>{node.name}</span>
+          {/* Кнопка только для конечных узлов */}
+          {!node.hasChildren && (
+            <IconButton
+              size="large"
+              onClick={(e) => {
+                e.stopPropagation();
+                // пока ничего не делает
+              }}
+              sx={{
+                opacity: 0.7,
+                transition: "opacity 0.2s",
+                "&:hover": { opacity: 1 },
+              }}
+            >
+              <MoreVertIcon fontSize="small" />
+            </IconButton>
+          )}
         </Stack>
       }
     >
