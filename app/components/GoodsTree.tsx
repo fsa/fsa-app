@@ -62,13 +62,11 @@ function TreeNodeComponent({
             />
           )}
           <span>{node.name}</span>
-          {/* Кнопка только для конечных узлов */}
           {!node.hasChildren && (
             <IconButton
               size="large"
               onClick={(e) => {
                 e.stopPropagation();
-                // пока ничего не делает
               }}
               sx={{
                 opacity: 0.7,
@@ -82,17 +80,13 @@ function TreeNodeComponent({
         </Stack>
       }
     >
-      {/* Загруженные дети */}
-      {isExpanded &&
-        query.data?.map((childNode) => (
-          <TreeNodeComponent
-            key={childNode.id}
-            node={childNode}
-            expandedItems={expandedItems}
-          />
-        ))}
-
-      {/* Индикатор загрузки */}
+      {query.data?.map((childNode) => (
+        <TreeNodeComponent
+          key={childNode.id}
+          node={childNode}
+          expandedItems={expandedItems}
+        />
+      ))}
       {query.isLoading && (
         <TreeItem
           itemId={`${node.id}-loading`}
@@ -100,8 +94,6 @@ function TreeNodeComponent({
           disabled
         />
       )}
-
-      {/* Плейсхолдер, если есть дети, но запрос ещё не запускался */}
       {!query.data && node.hasChildren && !query.isLoading && (
         <TreeItem itemId={`${node.id}-placeholder`} label="" disabled />
       )}
