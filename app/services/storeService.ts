@@ -3,22 +3,54 @@ import { api } from "./api"
 export interface TreeNode {
   id: string;
   name: string;
-  hasChildren: boolean;
+  productId?: number;
   children?: TreeNode[];
 }
 
-function adaptApiNode(apiNode: any): TreeNode {
+interface ApiNode {
+  id: number;
+  name: string;
+  path: string;
+  is_name_inherited: boolean;
+}
+
+interface ApiItem {
+  id: number;
+  name: string;
+  manufacture_id: number | null;
+  barcode: string | null;
+  category_path: string | null;
+}
+
+interface ApiResponse {
+  nodes: ApiNode[];
+  items: ApiItem[];
+}
+
+function adaptApiNode(apiNode: ApiNode): TreeNode {
   return {
-    id: apiNode.path,
+    id: String(apiNode.path),
     name: apiNode.name,
-    hasChildren: true,
-    children: undefined,
+  };
+}
+
+function adaptApiItem(apiItem: ApiItem): TreeNode {
+  return {
+    id: `item:${apiItem.id}`,
+    name: apiItem.name,
+    productId: apiItem.id,
   };
 }
 
 const fetchChildren = async (parentId: string): Promise<TreeNode[]> => {
-  const response = await api.get<any[]>(`/store/${parentId}`);
-  return response.data.map(adaptApiNode);
+  const response = await api.get<ApiResponse>(`/store/${parentId}`);
+  const { nodes, items } = response.data;
+
+  const folders = nodes.map(adaptApiNode);
+  const products = items.map(adaptApiItem);
+
+  // Сначала папки, потом товары
+  return [...folders, ...products];
 };
 
 export { fetchChildren };

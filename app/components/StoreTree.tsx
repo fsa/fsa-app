@@ -23,7 +23,7 @@ function TreeNodeComponent({
   const isExpanded = expandedItems.includes(node.id);
   const query = useStoreTree(node.id, isExpanded);
 
-  const isFolder = node.hasChildren;
+  const isFolder = !node.productId;
   const iconColor = theme.palette.primary.light;
 
   return (
@@ -62,7 +62,7 @@ function TreeNodeComponent({
             />
           )}
           <span>{node.name}</span>
-          {!node.hasChildren && (
+          {!!node.productId && (
             <IconButton
               size="large"
               onClick={(e) => {
