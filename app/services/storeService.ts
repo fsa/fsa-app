@@ -9,15 +9,15 @@ export interface TreeNode {
 
 function adaptApiNode(apiNode: any): TreeNode {
   return {
-    id: String(apiNode.id),
+    id: apiNode.path,
     name: apiNode.name,
-    hasChildren: !apiNode.isFinal,
+    hasChildren: true,
     children: undefined,
   };
 }
 
-const fetchChildren = async (parentId: number): Promise<TreeNode[]> => {
-  const response = await api.get<any[]>(`/goods/${parentId}`);
+const fetchChildren = async (parentId: string): Promise<TreeNode[]> => {
+  const response = await api.get<any[]>(`/store/${parentId}`);
   return response.data.map(adaptApiNode);
 };
 

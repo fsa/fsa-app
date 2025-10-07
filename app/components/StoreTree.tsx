@@ -9,8 +9,8 @@ import ShoppingCartOutlined from "@mui/icons-material/ShoppingCartOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CircularProgress, IconButton, Stack, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import type { TreeNode } from "~/services/goodsService";
-import { useGoodsTree } from "~/hooks/useGoodsTree";
+import type { TreeNode } from "~/services/storeService";
+import { useStoreTree } from "~/hooks/useStoreTree";
 
 function TreeNodeComponent({
   node,
@@ -21,7 +21,7 @@ function TreeNodeComponent({
 }) {
   const theme = useTheme();
   const isExpanded = expandedItems.includes(node.id);
-  const query = useGoodsTree(Number(node.id), isExpanded);
+  const query = useStoreTree(node.id, isExpanded);
 
   const isFolder = node.hasChildren;
   const iconColor = theme.palette.primary.light;
@@ -94,16 +94,19 @@ function TreeNodeComponent({
           disabled
         />
       )}
-      {!query.data && node.hasChildren && !query.isLoading && (
+      {!query.data && isFolder && !query.isLoading && (
         <TreeItem itemId={`${node.id}-placeholder`} label="" disabled />
+      )}
+      {query.data?.length==0 && isFolder && !query.isLoading && (
+        <TreeItem itemId={`${node.id}-empty`} label="Пусто" disabled />
       )}
     </TreeItem>
   );
 }
 
-export default function GoodsTree() {
+export default function StoreTree() {
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
-  const rootQuery = useGoodsTree(0, true);
+  const rootQuery = useStoreTree('0', true);
 
   const handleExpansionChange = (
     event: SyntheticEvent | null,

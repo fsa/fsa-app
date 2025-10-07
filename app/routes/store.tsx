@@ -1,5 +1,5 @@
-import GoodsTree from "~/components/GoodsTree";
-import type { Route } from "./+types/goods";
+import StoreTree from "~/components/StoreTree";
+import type { Route } from "./+types/store";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -10,6 +10,6 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function goods() {
   return (
-    <GoodsTree />
+    <StoreTree />
   );
 }
