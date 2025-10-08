@@ -3,6 +3,7 @@ import LocalMoviesIcon from '@mui/icons-material/LocalMovies';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import WalletIcon from '@mui/icons-material/Wallet';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
 export type MenuEntry =
   | {
@@ -19,6 +20,7 @@ export const menuConfig: MenuEntry[] = [
   { type: "item", title: "Главная", path: "/", icon: <HomeIcon /> },
   { type: "item", title: "Сериалы", path: "/movie", icon: <LocalMoviesIcon /> },
   { type: "item", title: "Сканер", path: "/scanner", icon: <QrCode2Icon /> },
+  { type: "item", title: "Чеки", path: "/checks", icon: <ReceiptIcon /> },
   { type: "item", title: "Товары", path: "/store", icon: <ShoppingCartIcon /> },
   { type: "item", title: "Кошелёк", path: "/wallet", icon: <WalletIcon /> },
 ];

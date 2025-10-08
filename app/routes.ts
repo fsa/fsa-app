@@ -6,6 +6,7 @@ export default [
     index("routes/home.tsx"),
     route('/scanner', 'routes/scanner.tsx'),
     route('/movie', 'routes/movie.tsx'),
+    route('/checks', 'routes/checks.tsx'),
     route('/store', 'routes/store.tsx'),
     route('/wallet', 'routes/wallet.tsx'),
     route("/wallet/account/:id", "routes/wallet-account.tsx"),
