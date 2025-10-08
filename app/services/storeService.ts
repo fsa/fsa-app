@@ -49,37 +49,8 @@ export interface StoreCheckItem {
   price: number;
   quantity: number;
   sum: number;
-  real_price: number;
-  real_quantity: number;
-}
-
-interface FnsCheck {
-  id: number;
-  datetime: string;
-}
-
-interface ApiStoreCheckItem {
-  id: number;
-  FnsCheck: FnsCheck;
-  name: string;
-  price: number;
-  quantity: number;
-  sum: number;
-  real_price: number;
-  real_quantity: number;
-}
-
-function adaptStoreItem(apiStoreCheckItem: ApiStoreCheckItem): StoreCheckItem {
-  return {
-    id: apiStoreCheckItem.id,
-    datetime: apiStoreCheckItem.FnsCheck.datetime,
-    name: apiStoreCheckItem.name,
-    price: apiStoreCheckItem.price/100,
-    quantity: apiStoreCheckItem.quantity,
-    sum: apiStoreCheckItem.sum/100,
-    real_price: apiStoreCheckItem.real_price/100,
-    real_quantity: apiStoreCheckItem.real_quantity,
-  };
+  real_price: number | null;
+  real_quantity: number | null;
 }
 
 const fetchChildren = async (parentId: string): Promise<TreeNode[]> => {
@@ -94,9 +65,9 @@ const fetchChildren = async (parentId: string): Promise<TreeNode[]> => {
 };
 
 const fetchCheckItemsByProductId = async (productId: number): Promise<StoreCheckItem[]> => {
-  const response = await api.get<ApiStoreCheckItem[]>(`/store/products/${productId}`);
+  const response = await api.get<StoreCheckItem[]>(`/store/products/${productId}`);
 
-  return response.data.map(adaptStoreItem);
+  return response.data;
 }
 
 export { fetchChildren, fetchCheckItemsByProductId };
