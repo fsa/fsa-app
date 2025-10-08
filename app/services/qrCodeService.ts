@@ -1,4 +1,5 @@
 import { api } from "./api"
+import type { TreeNode } from "./storeService";
 
 export interface QrCodeRegister {
   id: number;
@@ -7,6 +8,7 @@ export interface QrCodeRegister {
   createdAt: string;
   description: string;
   editable: boolean;
+  product: TreeNode;
 }
 
 const newQrCode = (text: string, format_name: string): Promise<QrCodeRegister> => {
