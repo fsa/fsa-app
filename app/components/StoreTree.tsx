@@ -5,7 +5,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import FolderIcon from "@mui/icons-material/Folder";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
-import ShoppingCartOutlined from "@mui/icons-material/ShoppingCartOutlined";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CircularProgress, IconButton, Stack, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -56,7 +56,7 @@ function TreeNodeComponent({
               )}
             </AnimatePresence>
           ) : (
-            <ShoppingCartOutlined
+            <Inventory2Icon
               fontSize="large"
               sx={{ color: theme.palette.text.secondary }}
             />
@@ -97,7 +97,7 @@ function TreeNodeComponent({
       {!query.data && isFolder && !query.isLoading && (
         <TreeItem itemId={`${node.id}-placeholder`} label="" disabled />
       )}
-      {query.data?.length==0 && isFolder && !query.isLoading && (
+      {query.data?.length == 0 && isFolder && !query.isLoading && (
         <TreeItem itemId={`${node.id}-empty`} label="Пусто" disabled />
       )}
     </TreeItem>
