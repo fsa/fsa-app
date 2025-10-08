@@ -11,13 +11,16 @@ import { CircularProgress, IconButton, Stack, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import type { TreeNode } from "~/services/storeService";
 import { useStoreTree } from "~/hooks/useStoreTree";
+import { StoreProductDialog } from "./StoreProductDialog";
 
 function TreeNodeComponent({
   node,
   expandedItems,
+  onOpenProduct,
 }: {
   node: TreeNode;
   expandedItems: string[];
+  onOpenProduct: (product: TreeNode) => void;
 }) {
   const theme = useTheme();
   const isExpanded = expandedItems.includes(node.id);
@@ -67,6 +70,7 @@ function TreeNodeComponent({
               size="large"
               onClick={(e) => {
                 e.stopPropagation();
+                onOpenProduct(node!);
               }}
               sx={{
                 opacity: 0.7,
@@ -85,6 +89,7 @@ function TreeNodeComponent({
           key={childNode.id}
           node={childNode}
           expandedItems={expandedItems}
+          onOpenProduct={onOpenProduct}
         />
       ))}
       {query.isLoading && (
@@ -107,6 +112,7 @@ function TreeNodeComponent({
 export default function StoreTree() {
   const [expandedItems, setExpandedItems] = useState<string[]>([]);
   const rootQuery = useStoreTree('0', true);
+  const [selectedProduct, setSelectedProduct] = useState<TreeNode | null>(null);
 
   const handleExpansionChange = (
     event: SyntheticEvent | null,
@@ -115,26 +121,37 @@ export default function StoreTree() {
     setExpandedItems(itemIds);
   };
 
+  const handleCloseDialog = () => setSelectedProduct(null);
+
   if (rootQuery.isLoading) {
     return <CircularProgress />;
   }
 
   return (
-    <SimpleTreeView
-      slots={{
-        collapseIcon: ExpandMoreIcon,
-        expandIcon: ChevronRightIcon,
-      }}
-      expandedItems={expandedItems}
-      onExpandedItemsChange={handleExpansionChange}
-    >
-      {rootQuery.data?.map((node) => (
-        <TreeNodeComponent
-          key={node.id}
-          node={node}
-          expandedItems={expandedItems}
-        />
-      ))}
-    </SimpleTreeView>
+    <>
+      <SimpleTreeView
+        slots={{
+          collapseIcon: ExpandMoreIcon,
+          expandIcon: ChevronRightIcon,
+        }}
+        expandedItems={expandedItems}
+        onExpandedItemsChange={handleExpansionChange}
+      >
+        {rootQuery.data?.map((node) => (
+          <TreeNodeComponent
+            key={node.id}
+            node={node}
+            expandedItems={expandedItems}
+            onOpenProduct={setSelectedProduct}
+          />
+        ))}
+      </SimpleTreeView>
+
+      <StoreProductDialog
+        product={selectedProduct}
+        open={!!selectedProduct}
+        onClose={handleCloseDialog}
+      />
+    </>
   );
 }

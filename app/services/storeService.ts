@@ -42,6 +42,46 @@ function adaptApiItem(apiItem: ApiItem): TreeNode {
   };
 }
 
+export interface StoreCheckItem {
+  id: number;
+  datetime: string;
+  name: string;
+  price: number;
+  quantity: number;
+  sum: number;
+  real_price: number;
+  real_quantity: number;
+}
+
+interface FnsCheck {
+  id: number;
+  datetime: string;
+}
+
+interface ApiStoreCheckItem {
+  id: number;
+  FnsCheck: FnsCheck;
+  name: string;
+  price: number;
+  quantity: number;
+  sum: number;
+  real_price: number;
+  real_quantity: number;
+}
+
+function adaptStoreItem(apiStoreCheckItem: ApiStoreCheckItem): StoreCheckItem {
+  return {
+    id: apiStoreCheckItem.id,
+    datetime: apiStoreCheckItem.FnsCheck.datetime,
+    name: apiStoreCheckItem.name,
+    price: apiStoreCheckItem.price/100,
+    quantity: apiStoreCheckItem.quantity,
+    sum: apiStoreCheckItem.sum/100,
+    real_price: apiStoreCheckItem.real_price/100,
+    real_quantity: apiStoreCheckItem.real_quantity,
+  };
+}
+
 const fetchChildren = async (parentId: string): Promise<TreeNode[]> => {
   const response = await api.get<ApiResponse>(`/store/${parentId}`);
   const { nodes, items } = response.data;
@@ -53,4 +93,10 @@ const fetchChildren = async (parentId: string): Promise<TreeNode[]> => {
   return [...folders, ...products];
 };
 
-export { fetchChildren };
+const fetchCheckItemsByProductId = async (productId: number): Promise<StoreCheckItem[]> => {
+  const response = await api.get<ApiStoreCheckItem[]>(`/store/products/${productId}`);
+
+  return response.data.map(adaptStoreItem);
+}
+
+export { fetchChildren, fetchCheckItemsByProductId };
