@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Button, CircularProgress, TextField, Typography } from "@mui/material";
-import { api } from "~/services/api";
+import { useWalletAccountTransaction } from "~/hooks/useWalletAccountTransaction";
 
 interface Props {
   accountId: number;
@@ -9,41 +9,34 @@ interface Props {
 }
 
 export default function WalletTransactionForm({ accountId, onCreated, onCancel }: Props) {
+  const { mutate, isPending, isError, error } = useWalletAccountTransaction(accountId);
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError(null);
 
-    try {
-      let operationAt: string | null = null;
-      if (date) {
-        operationAt = date + (time ? `T${time}:00` : 'T00:00:00');
-      }
-
-      await api.put(`/wallet/account/${accountId}/entry`, {
+    mutate(
+      {
+        accountId,
         amount: parseFloat(amount),
         description: description || null,
-        operationAt,
-      });
+        operationAt: (date ? (date + (time ? `T${time}:00` : 'T00:00:00')) : null),
+      },
+      {
+        onSuccess: () => {
+          setAmount("");
+          setDescription("");
+          setDate("");
+          setTime("");
 
-      setAmount("");
-      setDescription("");
-      setDate("");
-      setTime("");
+          onCreated?.();
+        }
+      }
+    );
 
-      onCreated?.();
-    } catch (err: any) {
-      setError("Ошибка при создании транзакции: " + err.message);
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
@@ -89,17 +82,17 @@ export default function WalletTransactionForm({ accountId, onCreated, onCancel }
         />
       </Box>
 
-      {error && <Typography color="error">{error}</Typography>}
+      {isError && <Typography color="error">Ошибка при создании транзакции: {error.message}</Typography>}
 
       <Box display="flex" gap={2}>
-        <Button type="submit" variant="contained" disabled={loading}>
-          {loading ? <CircularProgress size={24} /> : "Сохранить"}
+        <Button type="submit" variant="contained" disabled={isPending}>
+          {isPending ? <CircularProgress size={24} /> : "Сохранить"}
         </Button>
         <Button
           variant="outlined"
           color="secondary"
           onClick={onCancel}
-          disabled={loading}
+          disabled={isPending}
         >
           Отмена
         </Button>

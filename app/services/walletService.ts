@@ -1,0 +1,51 @@
+import { api } from "./api"
+
+interface WalletAccount {
+  id: number;
+  name: string;
+  balance: number;
+  description: string | null;
+}
+
+export interface WalletAccountOperation {
+  id: number;
+  description: string | null;
+  operation_at: string
+  created_at: string
+}
+
+export interface WalletAccountEntry {
+  id: number;
+  amount: string;
+  operation: WalletAccountOperation;
+}
+
+export interface WalletAccountApi {
+  account: WalletAccount;
+  entries: WalletAccountEntry[];
+}
+
+const fetchWalletAccountInfo = async (accountId: number): Promise<WalletAccountApi> => {
+  const response = await api.get<WalletAccountApi>(`/wallet/account/${accountId}`);
+
+  return response.data;
+}
+
+export interface WalletAccountTransaction {
+  accountId: number;
+  amount: number;
+  description: string | null;
+  operationAt: string | null;
+}
+
+const newWalletAccountTransaction = async (transaction: WalletAccountTransaction): Promise<any> => {
+  const response = await api.put<any>(`/wallet/account/${transaction.accountId}/entry`, {
+    amount: transaction.amount,
+    description: transaction.description,
+    operationAt: transaction.operationAt
+  });
+
+  return response.data;
+};
+
+export { fetchWalletAccountInfo, newWalletAccountTransaction };
