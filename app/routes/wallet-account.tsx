@@ -21,7 +21,7 @@ export default function WalletAccountPage() {
   if (!params.id || isNaN(accountId)) {
     return <Typography>Неверный ID аккаунта</Typography>;
   }
-  const { data, isLoading, isError, error } = useWalletAccount(accountId);
+  const { data, isLoading, isFetching, isError, error } = useWalletAccount(accountId);
 
   if (isLoading) return <CircularProgress size={24} />;
   if (isError) return <Typography color="error">Ошибка при загрузке данных: {error.message}</Typography>;
@@ -31,6 +31,24 @@ export default function WalletAccountPage() {
 
   return (
     <Box display="flex" flexDirection="column" gap={3}>
+      {/* 🔹 Затемнение при обновлении */}
+      {isFetching && (
+        <Box
+          sx={{
+            position: "absolute",
+            inset: 0,
+            bgcolor: "rgba(0,0,0,0.25)",
+            backdropFilter: "blur(2px)",
+            zIndex: 10,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 2,
+          }}
+        >
+          <CircularProgress size={32} color="inherit" />
+        </Box>
+      )}
       {/* 🔹 Карточка аккаунта */}
       <Card variant="outlined">
         <CardContent>
