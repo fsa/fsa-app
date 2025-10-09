@@ -12,7 +12,9 @@ import {
   TableRow,
   Paper,
   Box,
+  IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { useStoreCheckItems } from "~/hooks/useStoreCheckItems";
 import type { TreeNode } from "~/services/storeService";
 
@@ -38,17 +40,19 @@ export function StoreProductDialog({
     <Dialog
       open={open}
       onClose={onClose}
-      maxWidth="lg"
-      fullWidth
-      sx={{
-        "& .MuiDialog-paper": {
-          minHeight: "70vh",
-          borderRadius: 3,
-          p: 2,
-        },
-      }}
+      fullScreen
     >
-      <DialogTitle>{product?.name}</DialogTitle>
+      <DialogTitle
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}>
+        <Typography>{product?.name}</Typography>
+        <IconButton onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
       <DialogContent dividers>
         {query.isLoading && (
           <Box display="flex" justifyContent="center" py={4}>
