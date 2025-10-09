@@ -24,7 +24,7 @@ export default function WalletTransactionForm({ accountId, onCreated, onCancel }
     try {
       let operationAt: string | null = null;
       if (date) {
-        operationAt = date + (time ? `T${time}:00`: 'T00:00:00');
+        operationAt = date + (time ? `T${time}:00` : 'T00:00:00');
       }
 
       await api.put(`/wallet/account/${accountId}/entry`, {
@@ -76,7 +76,7 @@ export default function WalletTransactionForm({ accountId, onCreated, onCancel }
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          InputLabelProps={{ shrink: true }}
+          slotProps={{ inputLabel: { shrink: true } }}
           fullWidth
         />
         <TextField
@@ -84,7 +84,7 @@ export default function WalletTransactionForm({ accountId, onCreated, onCancel }
           type="time"
           value={time}
           onChange={(e) => setTime(e.target.value)}
-          InputLabelProps={{ shrink: true }}
+          slotProps={{ inputLabel: { shrink: true } }}
           fullWidth
         />
       </Box>
