@@ -70,7 +70,12 @@ export function FnsChecksList() {
       </Typography>
 
       <TableContainer component={Paper}>
-        <Table size="small">
+        <Table
+          size="small"
+          sx={{
+            minWidth: 600,
+          }}
+        >
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>

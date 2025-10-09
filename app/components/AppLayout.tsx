@@ -108,7 +108,12 @@ export default function AppLayout() {
         {/* Контент */}
         <Box
           component="main"
-          sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+          sx={{
+            flexGrow: 1,
+            p: 3,
+            width: { sm: `calc(100% - ${drawerWidth}px)` },
+            overflowX: "auto",
+          }}
         >
           <Toolbar /> {/* Отступ под AppBar */}
           <Outlet />
