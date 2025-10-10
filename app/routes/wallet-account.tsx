@@ -21,11 +21,11 @@ export default function WalletAccountPage() {
   if (!params.id || isNaN(accountId)) {
     return <Typography>Неверный ID аккаунта</Typography>;
   }
-  const { data, isLoading, isFetching, isError, error } = useWalletAccount(accountId);
+  const { data, isLoading, isFetching, isPending, isError, error } = useWalletAccount(accountId);
 
   if (isLoading) return <CircularProgress size={24} />;
   if (isError) return <Typography color="error">Ошибка при загрузке данных: {error.message}</Typography>;
-  if (!data) return <Typography>Нет данных</Typography>;
+  if (isPending) return <Typography>Нет данных</Typography>;
 
   const { account, entries } = data;
 

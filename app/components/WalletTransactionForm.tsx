@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function WalletTransactionForm({ accountId, onCreated, onCancel }: Props) {
-  const { mutate, isPending, isError, error } = useWalletAccountTransaction(accountId);
+  const { mutate, isPending, isError, error } = useWalletAccountTransaction();
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
