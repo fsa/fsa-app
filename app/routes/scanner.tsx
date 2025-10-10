@@ -1,4 +1,4 @@
-import QrScanner from "~/components/QrScanner";
+import { QrScanner } from "~/components/QrScanner";
 import type { Route } from "./+types/scanner";
 import { Card, CardContent, CardHeader } from "@mui/material";
 

@@ -76,7 +76,11 @@ const entryColumns: GridColDef[] = [
   },
 ];
 
-export function WalletAccountHistory({ entries }: { entries: WalletAccountEntry[] }) {
+interface Props {
+  entries: WalletAccountEntry[];
+}
+
+export function WalletAccountHistory({ entries }: Props) {
   const tableRows = entries.map(entry => ({
     id: entry.id,
     amount: entry.amount,

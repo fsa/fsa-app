@@ -18,15 +18,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useStoreCheckItems } from "~/hooks/useStoreCheckItems";
 import type { TreeNode } from "~/services/storeService";
 
-export function StoreProductDialog({
-  product,
-  open,
-  onClose,
-}: {
+interface Props {
   product: TreeNode | null;
   open: boolean;
   onClose: () => void;
-}) {
+}
+
+export function StoreProductDialog({ product, open, onClose }: Props) {
   const query =
     product && open
       ? useStoreCheckItems(product.productId!)

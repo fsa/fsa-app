@@ -1,12 +1,12 @@
 import './QrScanner.css';
 import { Scanner, type IDetectedBarcode } from '@yudiel/react-qr-scanner';
 import { useState } from 'react';
-import QrCodeEdit from './QrCodeEdit';
+import { QrCodeEdit } from './QrCodeEdit';
 import { Button, Stack, Typography } from '@mui/material';
 import { useNewQrCode } from '~/hooks/useNewQrCode';
 import type { QrCodeRegister } from '~/services/qrCodeService';
 
-function QrScanner() {
+export function QrScanner() {
   const [decodedResults, setDecodedResults] = useState('');
   const [qrCodeDescription, setQrCodeDescription] = useState<QrCodeRegister|null>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -75,5 +75,3 @@ function QrScanner() {
     </>
   );
 }
-
-export default QrScanner;

@@ -4,7 +4,7 @@ import { useQrCodeUpdateDescription } from "~/hooks/useQrCodeUpdateDescription";
 import type { QrCodeRegister } from "~/services/qrCodeService";
 import { StoreProductDialog } from "./StoreProductDialog";
 
-function QrCodeEdit(props: { qrCode: QrCodeRegister }) {
+export function QrCodeEdit(props: { qrCode: QrCodeRegister }) {
   const [editMode, setEditMode] = useState(false);
   const [qrCode, setQrCode] = useState(props.qrCode);
   const [description, setDescription] = useState(props.qrCode.description);
@@ -101,5 +101,3 @@ function QrCodeEdit(props: { qrCode: QrCodeRegister }) {
     </Box>
   );
 }
-
-export default QrCodeEdit;

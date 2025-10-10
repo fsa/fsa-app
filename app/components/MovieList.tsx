@@ -1,4 +1,4 @@
-import { Alert, Avatar, Card, CardContent, CardHeader, CircularProgress, List, ListItemAvatar, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { Alert, Avatar, Card, CardContent, CardHeader, CircularProgress, List, ListItemAvatar, ListItemButton, ListItemText } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { api } from "~/services/api";

@@ -15,7 +15,11 @@ import {
 } from "@mui/material";
 import { useFnsCheck } from "~/hooks/useFnsCheck";
 
-function FnsCheckDetail({ checkId }: { checkId: number }) {
+interface Props {
+  checkId: number;
+}
+
+function FnsCheckDetail({ checkId }: Props) {
   const { data: check, isLoading, isError, isFetching } = useFnsCheck(checkId);
 
   if (isLoading) {

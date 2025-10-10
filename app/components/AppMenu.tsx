@@ -11,7 +11,11 @@ import { menuConfig, type MenuEntry } from "~/config/AppMenu";
 import { useNavigate } from "react-router";
 import { hasRole } from "~/services/auth";
 
-export function AppMenu({ onNavigate }: { onNavigate?: () => void }) {
+interface Props {
+  onNavigate?: () => void
+}
+
+export function AppMenu({ onNavigate }: Props) {
   const navigate = useNavigate();
 
   const isAdmin = hasRole("ROLE_ADMIN");
