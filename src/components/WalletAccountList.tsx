@@ -8,11 +8,11 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { api } from "~/services/api";
+import { LoadingIndicator } from "~/widgets/LoadingIndicator";
 
 interface Account {
   id: number;
@@ -61,11 +61,7 @@ const WalletAccountList = ({ reloadKey }: Props) => {
   }
 
   if (isLoading) {
-    return (
-      <Box display="flex" justifyContent="center" mt={4}>
-        <CircularProgress />
-      </Box>
-    );
+    return <LoadingIndicator />;
   }
 
   if (isError) return <Typography color="error">Ошибка при загрузке списка счетов: {error.message}</Typography>;

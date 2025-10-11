@@ -1,6 +1,5 @@
 import {
   Box,
-  CircularProgress,
   Table,
   TableBody,
   TableCell,
@@ -19,6 +18,7 @@ import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useFnsChecks } from "~/hooks/useFnsChecks";
 import { FnsCheckDetail } from "./FnsCheckDetail";
+import { LoadingIndicator } from "~/widgets/LoadingIndicator";
 
 function formatDate(datetime: string) {
   return new Date(datetime).toLocaleString();
@@ -38,11 +38,7 @@ export function FnsChecksList() {
   };
 
   if (isLoading) {
-    return (
-      <Box display="flex" justifyContent="center" mt={4}>
-        <CircularProgress />
-      </Box>
-    );
+    return <LoadingIndicator />;
   }
 
   if (isError) {
@@ -113,9 +109,7 @@ export function FnsChecksList() {
       </TableContainer>
 
       {isFetching && (
-        <Box display="flex" justifyContent="center" mt={1}>
-          <CircularProgress size={24} />
-        </Box>
+        <LoadingIndicator />
       )}
 
       {/* 🔹 Модальное окно для деталей чека */}

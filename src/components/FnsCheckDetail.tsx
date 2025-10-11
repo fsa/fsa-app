@@ -11,9 +11,9 @@ import {
   TableHead,
   TableRow,
   Paper,
-  CircularProgress,
 } from "@mui/material";
 import { useFnsCheck } from "~/hooks/useFnsCheck";
+import { LoadingIndicator } from "~/widgets/LoadingIndicator";
 
 interface Props {
   checkId: number;
@@ -23,11 +23,7 @@ function FnsCheckDetail({ checkId }: Props) {
   const { data: check, isLoading, isError, isFetching } = useFnsCheck(checkId);
 
   if (isLoading) {
-    return (
-      <Box display="flex" justifyContent="center" mt={4}>
-        <CircularProgress />
-      </Box>
-    );
+    return <LoadingIndicator />;
   }
 
   if (isError) {

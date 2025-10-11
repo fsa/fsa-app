@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { TreeNode } from "~/services/storeService";
 import { useStoreTree } from "~/hooks/useStoreTree";
 import { StoreProductDialog } from "./StoreProductDialog";
+import { LoadingIndicator } from "~/widgets/LoadingIndicator";
 
 function TreeNodeComponent({
   node,
@@ -124,7 +125,7 @@ export default function StoreTree() {
   const handleCloseDialog = () => setSelectedProduct(null);
 
   if (rootQuery.isLoading) {
-    return <CircularProgress />;
+    return <LoadingIndicator />;
   }
 
   return (
