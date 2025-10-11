@@ -1,14 +1,14 @@
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export default [
-  route('/login', 'routes/login.tsx'),
+  route('/login', 'pages/login.tsx'),
   route("/", "components/AppLayout.tsx", [
-    index("routes/home.tsx"),
-    route('/scanner', 'routes/scanner.tsx'),
-    route('/movie', 'routes/movie.tsx'),
-    route('/checks', 'routes/checks.tsx'),
-    route('/store', 'routes/store.tsx'),
-    route('/wallet', 'routes/wallet.tsx'),
-    route("/wallet/account/:id", "routes/wallet-account.tsx"),
+    index("pages/home.tsx"),
+    route('/scanner', 'pages/scanner.tsx'),
+    route('/movie', 'pages/movie.tsx'),
+    route('/checks', 'pages/checks.tsx'),
+    route('/store', 'pages/store.tsx'),
+    route('/wallet', 'pages/wallet.tsx'),
+    route("/wallet/account/:id", "pages/wallet-account.tsx"),
   ]),
 ] satisfies RouteConfig;
