@@ -48,6 +48,17 @@ export default [
     },
     rules: {
       '@typescript-eslint/explicit-function-return-type': 'error',
+      "no-restricted-imports": [
+        "error",
+        {
+          "paths": [
+            {
+              "name": "@features",
+              "message": "Avoid direct imports from features. Use only allowed layers."
+            }
+          ]
+        }
+      ],
     },
   },
   js.configs.recommended,
