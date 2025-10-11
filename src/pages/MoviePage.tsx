@@ -1,6 +1,6 @@
 import type { Route } from "./+types/MoviePage";
 import { Container, Typography } from "@mui/material";
-import MovieList from "~/components/MovieList";
+import MovieList from "~/widgets/MovieList";
 
 export function meta({ }: Route.MetaArgs) {
   return [

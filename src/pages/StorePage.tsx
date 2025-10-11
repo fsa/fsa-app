@@ -1,4 +1,4 @@
-import StoreTree from "~/components/StoreTree";
+import StoreTree from "~/widgets/StoreTree";
 import type { Route } from "./+types/StorePage";
 import { Container } from "@mui/material";
 

@@ -1,6 +1,5 @@
-import { QrScanner } from "~/components/QrScanner";
+import { QrScanner } from "~/widgets/QrScanner";
 import type { Route } from "./+types/ScannerPage";
-import { Container } from "@mui/material";
 
 export function meta({ }: Route.MetaArgs) {
   return [

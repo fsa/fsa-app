@@ -7,7 +7,7 @@ import {
   ListSubheader,
   Divider,
 } from "@mui/material";
-import { menuConfig, type MenuEntry } from "~/config/AppMenu";
+import { menuConfig, type MenuEntry } from "~/app/menuConfig";
 import { useNavigate } from "react-router";
 import { hasRole } from "~/services/auth";
 

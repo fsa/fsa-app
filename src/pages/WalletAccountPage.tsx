@@ -1,9 +1,9 @@
-import { WalletAccountHistory } from "~/components/WalletAccoutHistory";
+import { WalletAccountHistory } from "~/widgets/WalletAccoutHistory";
 import type { Route } from "./+types/WalletAccountPage";
 import { Box, Button, Card, CardContent, CircularProgress, Container, Typography } from "@mui/material";
 import { useWalletAccount } from "~/hooks/useWalletAccount";
 import { useParams } from "react-router";
-import WalletTransactionForm from "~/components/WalletTransactionForm";
+import WalletTransactionForm from "~/widgets/WalletTransactionForm";
 import { useState } from "react";
 
 export function meta({ }: Route.MetaArgs) {

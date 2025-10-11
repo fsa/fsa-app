@@ -1,4 +1,4 @@
-import { FnsChecksList } from "~/components/FnsChecksList";
+import { FnsChecksList } from "~/widgets/FnsChecksList";
 import type { Route } from "./+types/ChecksPage";
 import { Container } from "@mui/material";
 
