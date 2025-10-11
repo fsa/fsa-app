@@ -1,7 +1,7 @@
-import { centerText, Scanner, type IDetectedBarcode } from '@yudiel/react-qr-scanner';
+import { Scanner, type IDetectedBarcode } from '@yudiel/react-qr-scanner';
 import { useState } from 'react';
 import { QrCodeEdit } from './QrCodeEdit';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, CardHeader, Stack, Typography } from '@mui/material';
 import { useNewQrCode } from '~/hooks/useNewQrCode';
 import type { QrCodeRegister } from '~/services/qrCodeService';
 
@@ -78,10 +78,11 @@ export function QrScanner() {
         </Stack>
         {qrCodeDescription && <QrCodeEdit qrCode={qrCodeDescription} />}
         {decodedResults &&
-          <Box width="100%" sx={{ textAlign: "center" }}>
-            <Typography>Содержимое кода:</Typography>
-            <Typography sx={{ wordBreak: 'break-word' }}>{decodedResults}</Typography>
-          </Box>
+          <Card sx={{ textAlign: "center", width: "100%" }}>
+            <CardContent>
+              <Typography sx={{ wordBreak: 'break-word' }}>{decodedResults}</Typography>
+            </CardContent>
+          </Card>
         }
       </Box>
     </>

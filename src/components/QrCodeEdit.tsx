@@ -1,4 +1,4 @@
-import { Box, Button, CircularProgress, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, CircularProgress, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useQrCodeUpdateDescription } from "~/hooks/useQrCodeUpdateDescription";
 import type { QrCodeRegister } from "~/services/qrCodeService";
@@ -41,62 +41,64 @@ export function QrCodeEdit(props: { qrCode: QrCodeRegister }) {
   }
 
   return (
-    <Box component="form" sx={{ mb: 2, mt: 2, width: "100%", textAlign: "center" }}>
+    <Box component="form" sx={{ mb: 2, mt: 2, width: "100%" }}>
       {!editMode ? (
-        <Stack spacing={2} sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <Typography sx={{ wordBreak: "break-word" }}>
-            Описание: {qrCode.description}
-          </Typography>
+        <Card>
+          <CardContent>
+            <Typography>{qrCode.description}</Typography>
+            <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+              {qrCode.editable && (
+                <Button variant="contained" onClick={handleEdit}>
+                  Редактировать
+                </Button>
+              )}
 
-          <Stack direction="row" spacing={2}>
-            {qrCode.editable && (
-              <Button variant="contained" onClick={handleEdit}>
-                Редактировать
-              </Button>
-            )}
+              {qrCode.product !== null && (
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() => setDialogOpen(true)}
+                >
+                  Информация о товаре
+                </Button>
+              )}
+            </Stack>
 
             {qrCode.product !== null && (
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={() => setDialogOpen(true)}
-              >
-                Информация о товаре
-              </Button>
+              <StoreProductDialog
+                open={dialogOpen}
+                onClose={() => setDialogOpen(false)}
+                product={qrCode.product}
+              />
             )}
-          </Stack>
-
-          {qrCode.product !== null && (
-            <StoreProductDialog
-              open={dialogOpen}
-              onClose={() => setDialogOpen(false)}
-              product={qrCode.product}
-            />
-          )}
-        </Stack>
+          </CardContent>
+        </Card>
       ) : (
-        <Stack spacing={2}>
-          <TextField
-            label="Комментарий"
-            multiline
-            minRows={4}
-            value={description}
-            slotProps={{ inputLabel: { shrink: true } }}
-            onChange={(e) => handleChange(e.target.value)}
-          />
-            <Stack direction="row" spacing={2}>
-            <Button
-              variant="contained"
-              onClick={handleSubmit}
-              disabled={isPending}
-            >
-              {isPending ? <CircularProgress size={24} /> : "Сохранить"}
-            </Button>
-            <Button variant="outlined" onClick={handleCancel}>
-              Отмена
-            </Button>
-          </Stack>
-        </Stack>
+        <Card>
+          <CardContent>
+            <TextField
+              label="Комментарий"
+              multiline
+              minRows={4}
+              value={description}
+              slotProps={{ inputLabel: { shrink: true } }}
+              onChange={(e) => handleChange(e.target.value)}
+              sx={{ width: "100%" }}
+            />
+            <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+              <Button
+                variant="contained"
+                onClick={handleSubmit}
+                disabled={isPending}
+              >
+                {isPending ? <CircularProgress size={24} /> : "Сохранить"}
+              </Button>
+              <Button variant="outlined" onClick={handleCancel}>
+                Отмена
+              </Button>
+            </Stack>
+          </CardContent>
+        </Card>
       )}
     </Box>
   );
