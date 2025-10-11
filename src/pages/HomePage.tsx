@@ -1,5 +1,5 @@
 import { Container, Typography } from "@mui/material";
-import type { Route } from "./+types/home";
+import type { Route } from "./+types/HomePage";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -8,7 +8,7 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
+export default function HomePage() {
   return (
     <Container>
       <Typography>Welcome!</Typography>

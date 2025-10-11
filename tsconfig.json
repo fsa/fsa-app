@@ -21,8 +21,7 @@
       "@features/*": ["features/*"],
       "@shared/*": ["shared/*"],
       "@pages/*": ["pages/*"],
-      "@widgets/*": ["widgets/*"],
-      "@processes/*": ["processes/*"]
+      "@widgets/*": ["widgets/*"]
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,

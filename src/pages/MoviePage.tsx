@@ -1,4 +1,4 @@
-import type { Route } from "./+types/movie";
+import type { Route } from "./+types/MoviePage";
 import { Container, Typography } from "@mui/material";
 import MovieList from "~/components/MovieList";
 
@@ -9,7 +9,7 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export default function Movie() {
+export default function MoviePage() {
   return (
     <Container maxWidth="lg">
       <MovieList />

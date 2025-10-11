@@ -1,5 +1,5 @@
 import { QrScanner } from "~/components/QrScanner";
-import type { Route } from "./+types/scanner";
+import type { Route } from "./+types/ScannerPage";
 import { Card, CardContent, CardHeader } from "@mui/material";
 
 export function meta({ }: Route.MetaArgs) {
@@ -9,7 +9,7 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-function Scanner() {
+export default function ScannerPage() {
   return (
     <Card>
       <CardHeader
@@ -21,5 +21,3 @@ function Scanner() {
     </Card>
   );
 }
-
-export default Scanner;

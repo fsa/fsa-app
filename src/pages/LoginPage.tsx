@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router';
 import { login, logout, getAccessToken } from "~/services/auth";
-import type { Route } from "./+types/login";
+import type { Route } from "./+types/LoginPage";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from "@mui/material/TextField";
@@ -17,7 +17,7 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export default function Home() {
+export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();

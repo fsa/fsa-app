@@ -1,5 +1,5 @@
 import { WalletAccountHistory } from "~/components/WalletAccoutHistory";
-import type { Route } from "../+types/root";
+import type { Route } from "./+types/WalletAccountPage";
 import { Box, Button, Card, CardContent, CircularProgress, Typography } from "@mui/material";
 import { useWalletAccount } from "~/hooks/useWalletAccount";
 import { useParams } from "react-router";

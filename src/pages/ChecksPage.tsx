@@ -1,5 +1,5 @@
 import { FnsChecksList } from "~/components/FnsChecksList";
-import type { Route } from "./+types/checks";
+import type { Route } from "./+types/ChecksPage";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -8,7 +8,7 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export default function goods() {
+export default function CheckPage() {
   return (
     <FnsChecksList />
   );

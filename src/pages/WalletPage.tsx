@@ -1,4 +1,4 @@
-import type { Route } from "./+types/wallet";
+import type { Route } from "./+types/WalletPage";
 import {
   Card,
   CardContent,
@@ -18,7 +18,7 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export default function Wallet() {
+export default function WalletPage() {
   const [reloadKey, setReloadKey] = useState(Date.now());
   const [showForm, setShowForm] = useState(false);
 
