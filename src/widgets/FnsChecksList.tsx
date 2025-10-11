@@ -18,7 +18,7 @@ import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useFnsChecks } from "~/hooks/useFnsChecks";
 import { FnsCheckDetail } from "./FnsCheckDetail";
-import { LoadingIndicator } from "~/shared/LoadingIndicator";
+import { LoadingIndicator } from "~/shared/ui/LoadingIndicator";
 
 function formatDate(datetime: string) {
   return new Date(datetime).toLocaleString();

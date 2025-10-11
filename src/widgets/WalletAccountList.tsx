@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { api } from "~/services/api";
-import { LoadingIndicator } from "~/shared/LoadingIndicator";
+import { LoadingIndicator } from "~/shared/ui/LoadingIndicator";
 
 interface Account {
   id: number;
