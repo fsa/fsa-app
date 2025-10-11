@@ -1,5 +1,6 @@
 import StoreTree from "~/components/StoreTree";
 import type { Route } from "./+types/StorePage";
+import { Container } from "@mui/material";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -10,6 +11,8 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function StorePage() {
   return (
-    <StoreTree />
+    <Container maxWidth="lg">
+      <StoreTree />
+    </Container>
   );
 }
