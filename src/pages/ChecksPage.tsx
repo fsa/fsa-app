@@ -11,8 +11,6 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function CheckPage() {
   return (
-    <Container maxWidth="lg">
-      <FnsChecksList />
-    </Container>
-  );
+    <FnsChecksList />
+  )
 }

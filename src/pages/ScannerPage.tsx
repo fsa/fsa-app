@@ -11,8 +11,6 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function ScannerPage() {
   return (
-    <Container maxWidth="lg">
-      <QrScanner />
-    </Container>
+    <QrScanner />
   );
 }

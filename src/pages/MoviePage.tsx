@@ -11,8 +11,6 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function MoviePage() {
   return (
-    <Container maxWidth="lg">
-      <MovieList />
-    </Container>
+    <MovieList />
   )
 }

@@ -11,8 +11,6 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function StorePage() {
   return (
-    <Container maxWidth="lg">
-      <StoreTree />
-    </Container>
+    <StoreTree />
   );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { logout, getAccessToken, refreshToken, setAccessToken } from "../services/auth";
-import { AppBar, Box, Button, CssBaseline, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Container, CssBaseline, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AppMenu } from "./AppMenu";
 
@@ -116,7 +116,9 @@ export default function AppLayout() {
           }}
         >
           <Toolbar /> {/* Отступ под AppBar */}
-          <Outlet />
+          <Container maxWidth="lg">
+            <Outlet />
+          </Container>
         </Box>
       </Box>
     </>

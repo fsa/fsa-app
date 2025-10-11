@@ -30,74 +30,72 @@ export default function WalletAccountPage() {
   const { account, entries } = data;
 
   return (
-    <Container maxWidth="lg">
-      <Box display="flex" flexDirection="column" gap={3}>
-        {/* 🔹 Затемнение при обновлении */}
-        {isFetching && (
-          <Box
-            sx={{
-              position: "absolute",
-              inset: 0,
-              bgcolor: "rgba(0,0,0,0.25)",
-              backdropFilter: "blur(2px)",
-              zIndex: 10,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 2,
-            }}
+    <Box display="flex" flexDirection="column" gap={3}>
+      {/* 🔹 Затемнение при обновлении */}
+      {isFetching && (
+        <Box
+          sx={{
+            position: "absolute",
+            inset: 0,
+            bgcolor: "rgba(0,0,0,0.25)",
+            backdropFilter: "blur(2px)",
+            zIndex: 10,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 2,
+          }}
+        >
+          <CircularProgress size={32} color="inherit" />
+        </Box>
+      )}
+      {/* 🔹 Карточка аккаунта */}
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h5" gutterBottom>
+            {account.name}
+          </Typography>
+          <Typography
+            color={account.balance < 0 ? "error.main" : "success.main"}
+            fontWeight="bold"
+            variant="h6"
           >
-            <CircularProgress size={32} color="inherit" />
-          </Box>
-        )}
-        {/* 🔹 Карточка аккаунта */}
+            {account.balance.toLocaleString("ru-RU")} ₽
+          </Typography>
+          {account.description && (
+            <Typography variant="body2" color="text.secondary" mt={1}>
+              {account.description}
+            </Typography>
+          )}
+        </CardContent>
+      </Card>
+
+      {showForm ? (
         <Card variant="outlined">
           <CardContent>
-            <Typography variant="h5" gutterBottom>
-              {account.name}
+            <Typography variant="h6" gutterBottom>
+              Новая транзакция
             </Typography>
-            <Typography
-              color={account.balance < 0 ? "error.main" : "success.main"}
-              fontWeight="bold"
-              variant="h6"
-            >
-              {account.balance.toLocaleString("ru-RU")} ₽
-            </Typography>
-            {account.description && (
-              <Typography variant="body2" color="text.secondary" mt={1}>
-                {account.description}
-              </Typography>
-            )}
+            <WalletTransactionForm
+              accountId={account.id}
+              onCreated={() => {
+                setShowForm(false);
+              }}
+              onCancel={() => setShowForm(false)}
+            />
           </CardContent>
         </Card>
-
-        {showForm ? (
-          <Card variant="outlined">
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Новая транзакция
-              </Typography>
-              <WalletTransactionForm
-                accountId={account.id}
-                onCreated={() => {
-                  setShowForm(false);
-                }}
-                onCancel={() => setShowForm(false)}
-              />
-            </CardContent>
-          </Card>
-        ) : (
-          <Box display="flex" justifyContent="flex-end">
-            <Button variant="contained" onClick={() => setShowForm(true)}>
-              Добавить транзакцию
-            </Button>
-          </Box>
-        )}
-        <Typography variant="h6">История операций</Typography>
-        <Box sx={{ height: 600, width: "100%" }}>
-          <WalletAccountHistory entries={entries} />
+      ) : (
+        <Box display="flex" justifyContent="flex-end">
+          <Button variant="contained" onClick={() => setShowForm(true)}>
+            Добавить транзакцию
+          </Button>
         </Box>
+      )}
+      <Typography variant="h6">История операций</Typography>
+      <Box sx={{ height: 600, width: "100%" }}>
+        <WalletAccountHistory entries={entries} />
       </Box>
-    </Container>
+    </Box>
   );
 }

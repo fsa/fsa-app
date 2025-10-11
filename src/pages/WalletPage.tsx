@@ -23,7 +23,7 @@ export default function WalletPage() {
   const [showForm, setShowForm] = useState(false);
 
   return (
-    <Container maxWidth="lg">
+    <>
       {showForm ? (
         <Card>
           <CardHeader title="Создание нового счёта" />
@@ -55,6 +55,6 @@ export default function WalletPage() {
         </>
       )}
       <WalletAccountList reloadKey={reloadKey} />
-    </Container>
+    </>
   );
 }

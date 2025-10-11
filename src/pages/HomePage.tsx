@@ -10,8 +10,6 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function HomePage() {
   return (
-    <Container maxWidth="lg">
-      <Typography>Добро пожаловать на fsa.su</Typography>
-    </Container>
+    <Typography>Добро пожаловать на fsa.su</Typography>
   );
 }
