@@ -1,5 +1,6 @@
 import { FnsChecksList } from "~/components/FnsChecksList";
 import type { Route } from "./+types/ChecksPage";
+import { Container } from "@mui/material";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -10,6 +11,8 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function CheckPage() {
   return (
-    <FnsChecksList />
+    <Container maxWidth="lg">
+      <FnsChecksList />
+    </Container>
   );
 }

@@ -50,11 +50,11 @@ export default function WalletPage() {
                   Создать новый счёт
                 </Button>
               </Box>
-              <WalletAccountList reloadKey={reloadKey} />
             </CardContent>
           </Card>
         </>
       )}
+      <WalletAccountList reloadKey={reloadKey} />
     </Container>
   );
 }
