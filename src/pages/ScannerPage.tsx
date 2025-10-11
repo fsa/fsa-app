@@ -1,6 +1,6 @@
 import { QrScanner } from "~/components/QrScanner";
 import type { Route } from "./+types/ScannerPage";
-import { Card, CardContent, CardHeader } from "@mui/material";
+import { Container } from "@mui/material";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -11,13 +11,8 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function ScannerPage() {
   return (
-    <Card>
-      <CardHeader
-        title="Сканер"
-      />
-      <CardContent>
-        <QrScanner />
-      </CardContent>
-    </Card>
+    <Container maxWidth="lg">
+      <QrScanner />
+    </Container>
   );
 }

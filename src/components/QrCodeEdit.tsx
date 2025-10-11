@@ -41,9 +41,9 @@ export function QrCodeEdit(props: { qrCode: QrCodeRegister }) {
   }
 
   return (
-    <Box component="form" sx={{ mb: 2, mt: 2 }}>
+    <Box component="form" sx={{ mb: 2, mt: 2, width: "100%", textAlign: "center" }}>
       {!editMode ? (
-        <Stack spacing={2}>
+        <Stack spacing={2} sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Typography sx={{ wordBreak: "break-word" }}>
             Описание: {qrCode.description}
           </Typography>
@@ -84,7 +84,7 @@ export function QrCodeEdit(props: { qrCode: QrCodeRegister }) {
             slotProps={{ inputLabel: { shrink: true } }}
             onChange={(e) => handleChange(e.target.value)}
           />
-          <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2}>
             <Button
               variant="contained"
               onClick={handleSubmit}

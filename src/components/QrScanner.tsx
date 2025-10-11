@@ -1,14 +1,13 @@
-import './QrScanner.css';
-import { Scanner, type IDetectedBarcode } from '@yudiel/react-qr-scanner';
+import { centerText, Scanner, type IDetectedBarcode } from '@yudiel/react-qr-scanner';
 import { useState } from 'react';
 import { QrCodeEdit } from './QrCodeEdit';
-import { Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { useNewQrCode } from '~/hooks/useNewQrCode';
 import type { QrCodeRegister } from '~/services/qrCodeService';
 
 export function QrScanner() {
   const [decodedResults, setDecodedResults] = useState('');
-  const [qrCodeDescription, setQrCodeDescription] = useState<QrCodeRegister|null>(null);
+  const [qrCodeDescription, setQrCodeDescription] = useState<QrCodeRegister | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const { mutate } = useNewQrCode();
 
@@ -35,12 +34,15 @@ export function QrScanner() {
 
   return (
     <>
-      <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
-        <Button variant="contained" onClick={toggleScanner}>
-          {isPaused ? 'Запустить сканирование' : 'Приостановить'}
-        </Button>
-      </Stack>
-      <div className='qr-scanner'>
+      <Box
+        display='flex'
+        flexDirection='column'
+        alignItems='center'
+        sx={{
+          maxWidth: 480,
+          alignContent: "center"
+        }}
+      >
         <Scanner
           onScan={onScanCode}
           paused={isPaused}
@@ -69,9 +71,19 @@ export function QrScanner() {
             'unknown'
           ]}
         />
-      </div>
-      <Typography sx={{ wordBreak: 'break-word' }}>{decodedResults}</Typography>
-      {qrCodeDescription && <QrCodeEdit qrCode={qrCodeDescription} />}
+        <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+          <Button variant="contained" onClick={toggleScanner}>
+            {isPaused ? 'Запустить сканирование' : 'Приостановить'}
+          </Button>
+        </Stack>
+        {qrCodeDescription && <QrCodeEdit qrCode={qrCodeDescription} />}
+        {decodedResults &&
+          <Box width="100%" sx={{ textAlign: "center" }}>
+            <Typography>Содержимое кода:</Typography>
+            <Typography sx={{ wordBreak: 'break-word' }}>{decodedResults}</Typography>
+          </Box>
+        }
+      </Box>
     </>
   );
 }
