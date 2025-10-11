@@ -1,13 +1,17 @@
 import {
   Box,
-  Card,
-  CardContent,
   Typography,
-  CardActionArea,
-  Skeleton,
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import { api } from "~/services/api";
 
 interface Account {
@@ -22,24 +26,29 @@ interface Props {
 }
 
 const WalletAccountList = ({ reloadKey }: Props) => {
-  const [accountList, setAccountList] = useState<Account[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [data, setData] = useState<Account[] | null>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(true);
+  const [error, setError] = useState<{ message: string }>({ message: "" });
+
+  const navigate = useNavigate();
 
   const loadAccounts = () => {
-    setLoading(true);
+    setIsLoading(true);
     api
       .get<Account[]>("/wallet/account")
       .then((response) => {
-        setAccountList(response.data);
-        setError(null);
+        setData(response.data);
+        setIsError(false);
+        setError({ message: "" });
       })
       .catch((error) => {
-        setAccountList([]);
-        setError("Ошибка при загрузке списка счетов: " + error);
+        setData(null);
+        setIsError(true);
+        setError({ message: error });
       })
       .finally(() => {
-        setLoading(false);
+        setIsLoading(false);
       });
   };
 
@@ -47,41 +56,70 @@ const WalletAccountList = ({ reloadKey }: Props) => {
     loadAccounts();
   }, [reloadKey]);
 
-  if (error) return <Typography color="error">{error}</Typography>;
+  const handleAccountSelect = (accountId: number) => {
+    navigate(`/wallet/account/${accountId}`);
+  }
+
+  if (isLoading) {
+    return (
+      <Box display="flex" justifyContent="center" mt={4}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (isError) return <Typography color="error">Ошибка при загрузке списка счетов: {error.message}</Typography>;
+
+  if (!data) {
+    return (
+      <Box display="flex" justifyContent="center" mt={4}>
+        <Typography color="info" mt={2}>
+          Данные пока недоступны.
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
-    <Box display="flex" flexDirection="column" gap={2}>
-      {loading
-        ? Array.from({ length: 3 }).map((_, idx) => (
-          <Card key={idx} variant="outlined">
-            <CardContent>
-              <Skeleton variant="text" width="60%" height={28} />
-              <Skeleton variant="text" width="40%" height={24} />
-              <Skeleton variant="text" width="80%" height={20} />
-            </CardContent>
-          </Card>
-        ))
-        : accountList.map((row) => (
-          <Card key={row.id} variant="outlined">
-            <CardActionArea component={Link} to={`/wallet/account/${row.id}`}>
-              <CardContent>
-                <Typography variant="h6">{row.name}</Typography>
-                <Typography
-                  color={row.balance < 0 ? "error.main" : "success.main"}
-                  fontWeight="bold"
-                >
-                  {row.balance.toLocaleString()} ₽
-                </Typography>
-                {row.description && (
-                  <Typography variant="body2" color="text.secondary">
-                    {row.description}
-                  </Typography>
-                )}
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        ))}
-    </Box>
+    <TableContainer component={Paper}>
+      <Table
+        size="small"
+        sx={{
+          minWidth: 600,
+        }}
+      >
+        <TableHead>
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell align="right">Сумма</TableCell>
+            <TableCell>Имя</TableCell>
+            <TableCell>Описание</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((account) => (
+            <TableRow
+              key={account.id}
+              hover
+              sx={{
+                cursor: "pointer"
+              }}
+              onClick={() => handleAccountSelect(account.id)}
+            >
+              <TableCell>{account.id}</TableCell>
+              <TableCell align="right"><Typography
+                color={account.balance < 0 ? "error.main" : "success.main"}
+                fontWeight="bold"
+              >
+                {account.balance.toLocaleString()} ₽
+              </Typography></TableCell>
+              <TableCell>{account.name}</TableCell>
+              <TableCell>{account.description}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
