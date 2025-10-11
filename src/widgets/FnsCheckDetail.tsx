@@ -13,7 +13,7 @@ import {
   Paper,
 } from "@mui/material";
 import { useFnsCheck } from "~/hooks/useFnsCheck";
-import { LoadingIndicator } from "~/widgets/LoadingIndicator";
+import { LoadingIndicator } from "~/shared/LoadingIndicator";
 
 interface Props {
   checkId: number;
