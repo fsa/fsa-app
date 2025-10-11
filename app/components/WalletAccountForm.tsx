@@ -1,6 +1,12 @@
-import { useState } from "react";
 import { Box, Button, CircularProgress, TextField, Typography } from "@mui/material";
-import { api } from "~/services/api";
+import { useForm, type SubmitHandler } from "react-hook-form"
+import { useWalletAccountCreate } from "~/hooks/useWalletAccountCreate";
+import type { WalletAccountCreate } from "~/services/walletService";
+
+type Inputs = {
+  name: string
+  description: string
+}
 
 interface Props {
   onCreated?: () => void;
@@ -8,61 +14,46 @@ interface Props {
 }
 
 const WalletAccountForm = ({ onCreated, onCancel }: Props) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { register, handleSubmit, reset } = useForm<Inputs>();
+  const { mutateAsync, isPending, isError, error } = useWalletAccountCreate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    try {
-      await api.put("/wallet/account", { name, description });
-      setName("");
-      setDescription("");
-      if (onCreated) onCreated();
-    } catch (err: any) {
-      setError("Ошибка при создании счёта: " + err.message);
-    } finally {
-      setLoading(false);
-    }
+  const onSubmit: SubmitHandler<Inputs> = async (account: WalletAccountCreate) => {
+    await mutateAsync(account);
+    if(onCreated) onCreated();
+    reset();
   };
 
   return (
     <Box
       component="form"
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       display="flex"
       flexDirection="column"
       gap={2}
     >
       <TextField
-        label="Название счёта"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        label="Название счёта*"
+        {...register("name")}
         required
       />
       <TextField
         label="Описание"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        {...register("description")}
         multiline
         minRows={2}
       />
 
-      {error && <Typography color="error">{error}</Typography>}
+      {isError && <Typography color="error">Ошибка при создании счёта: {error.message}</Typography>}
 
       <Box display="flex" gap={2}>
-        <Button type="submit" variant="contained" disabled={loading}>
-          {loading ? <CircularProgress size={24} /> : "Сохранить"}
+        <Button type="submit" variant="contained" disabled={isPending}>
+          {isPending ? <CircularProgress size={24} /> : "Сохранить"}
         </Button>
         <Button
           variant="outlined"
           color="secondary"
           onClick={() => onCancel?.()}
-          disabled={loading}
+          disabled={isPending}
         >
           Отмена
         </Button>

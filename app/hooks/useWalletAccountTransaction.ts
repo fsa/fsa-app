@@ -6,7 +6,7 @@ export const useWalletAccountTransaction = () => {
 
   return useMutation({
     mutationFn: (transaction: WalletAccountTransaction) => newWalletAccountTransaction(transaction),
-    onSuccess: (data, transaction) => {
+    onSuccess: (_, transaction) => {
       queryClient.invalidateQueries({ queryKey: ['WalletAccount', transaction.accountId] });
     },
   });

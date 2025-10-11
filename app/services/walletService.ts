@@ -25,7 +25,7 @@ export interface WalletAccountApi {
   entries: WalletAccountEntry[];
 }
 
-const fetchWalletAccountInfo = async (accountId: number): Promise<WalletAccountApi> => {
+export const fetchWalletAccountInfo = async (accountId: number): Promise<WalletAccountApi> => {
   const response = await api.get<WalletAccountApi>(`/wallet/account/${accountId}`);
 
   return response.data;
@@ -38,7 +38,7 @@ export interface WalletAccountTransaction {
   operationAt: string | null;
 }
 
-const newWalletAccountTransaction = async (transaction: WalletAccountTransaction): Promise<any> => {
+export const newWalletAccountTransaction = async (transaction: WalletAccountTransaction): Promise<any> => {
   const response = await api.put<any>(`/wallet/account/${transaction.accountId}/entry`, {
     amount: transaction.amount,
     description: transaction.description,
@@ -48,4 +48,14 @@ const newWalletAccountTransaction = async (transaction: WalletAccountTransaction
   return response.data;
 };
 
-export { fetchWalletAccountInfo, newWalletAccountTransaction };
+export interface WalletAccountCreate {
+  name: string;
+  description: string;
+}
+
+//TODO: возвращается новый аккаунт
+export const walletAccountCreate = async (newAccount: WalletAccountCreate): Promise<any> => {
+  const response = await api.put<any>(`/wallet/account`, newAccount);
+
+  return response.data;
+};
