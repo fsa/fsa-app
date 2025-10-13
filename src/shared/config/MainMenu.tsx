@@ -16,7 +16,7 @@ export type MenuEntry =
   | { type: "divider"; roles?: string[] }
   | { type: "section"; title: string; roles?: string[] };
 
-export const menuConfig: MenuEntry[] = [
+export const configMainMenu: MenuEntry[] = [
   { type: "item", title: "Главная", path: "/", icon: <HomeIcon /> },
   { type: "item", title: "Сериалы", path: "/movie", icon: <LocalMoviesIcon /> },
   { type: "item", title: "Сканер", path: "/scanner", icon: <QrCode2Icon /> },

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router";
-import { logout, getAccessToken, refreshToken, setAccessToken } from "../services/auth";
-import { AppBar, Box, Button, Container, CssBaseline, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
+import { getAccessToken, refreshToken, setAccessToken } from "~/services/auth";
+import { AppBar, Box, Container, CssBaseline, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AppMenu } from "./AppMenu";
+import { UserMenu } from "~/features/UserMenu";
 
 const drawerWidth = 240;
 
@@ -38,11 +39,6 @@ export default function AppLayout() {
     setMobileOpen(!mobileOpen);
   };
 
-  async function handleLogout() {
-    await logout();
-    navigate("/login");
-  }
-
   return (
     <>
       <CssBaseline />
@@ -64,9 +60,7 @@ export default function AppLayout() {
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
               FSA
             </Typography>
-            <Button color="inherit" onClick={handleLogout}>
-              Выйти
-            </Button>
+            <UserMenu />
           </Toolbar>
         </AppBar>
 

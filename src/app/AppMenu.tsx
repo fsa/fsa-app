@@ -7,7 +7,7 @@ import {
   ListSubheader,
   Divider,
 } from "@mui/material";
-import { menuConfig, type MenuEntry } from "~/app/menuConfig";
+import { configMainMenu, type MenuEntry } from "~/shared/config/MainMenu";
 import { useNavigate } from "react-router";
 import { hasRole } from "~/services/auth";
 
@@ -28,7 +28,7 @@ export function AppMenu({ onNavigate }: Props) {
 
   return (
     <List>
-      {menuConfig.map((entry, idx) => {
+      {configMainMenu.map((entry, idx) => {
         if (!isAllowed(entry)) return null;
 
         switch (entry.type) {
