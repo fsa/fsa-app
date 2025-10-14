@@ -1,4 +1,4 @@
-import { useApiClient } from "@/shared/api/apiClient";
+import { useApiClient } from "./apiClient";
 
 export function sessionApi() {
   const client = useApiClient();

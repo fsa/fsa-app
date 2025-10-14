@@ -1,8 +1,8 @@
 import axios, { AxiosError, type AxiosInstance } from "axios";
 import { queryClient } from "@/app/providers/query/QueryProvider";
-import { sessionApi } from "@/entities/session/api/sessionApi";
-import { useAccessToken, useSetToken, useClearSession } from "../../entities/session/model/sessionStore";
-import { API_BASE_URL } from "../config/env";
+import { sessionApi } from "./sessionApi";
+import { useAccessToken, useSetToken, useClearSession } from "../model/sessionStore";
+import { API_BASE_URL } from "@/shared/config/env";
 
 const baseApi: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,

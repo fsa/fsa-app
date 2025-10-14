@@ -1,5 +1,5 @@
 import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
-import { useApiClient } from "@/shared/api/apiClient";
+import { useApiClient } from "@/entities/session/api/apiClient";
 import { getTokenLifetimeMs } from "@/shared/lib/jwt";
 import { useAccessToken } from "../sessionStore";
 
