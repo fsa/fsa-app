@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "react-router";
 import { getAccessToken, refreshToken, setAccessToken } from "~/services/auth";
 import { AppBar, Box, Container, CssBaseline, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppMenu } from "./AppMenu";
+import { AppMenu } from "../AppMenu";
 import { UserMenu } from "~/features/UserMenu";
 
 const drawerWidth = 240;

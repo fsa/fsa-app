@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router';
 import { login, logout, getAccessToken } from "~/services/auth";
-import type { Route } from "./+types/LoginPage";
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from "@mui/material/TextField";
@@ -9,6 +8,7 @@ import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
+import type { Route } from "./+types/LoginPage";
 
 export function meta({ }: Route.MetaArgs) {
   return [

@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import type { Route } from "./+types/HomePage";
 
 export function meta({ }: Route.MetaArgs) {

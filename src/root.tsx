@@ -9,15 +9,14 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import "./app.css";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Alert, Box, Button, CircularProgress, Container, Paper, Typography } from "@mui/material";
 import { Refresh, Home } from '@mui/icons-material';
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { QueryProvider } from "@/app/providers";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -56,8 +55,6 @@ export const links: Route.LinksFunction = () => [
   }
 ];
 
-const queryClient = new QueryClient();
-
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru">
@@ -69,10 +66,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <QueryClientProvider client={queryClient}>
+        <QueryProvider>
           {children}
           <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+        </QueryProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
