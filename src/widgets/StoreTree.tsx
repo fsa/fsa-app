@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { TreeNode } from "~/services/storeService";
 import { useStoreTree } from "~/hooks/useStoreTree";
 import { StoreProductDialog } from "./StoreProductDialog";
-import { LoadingIndicator } from "~/shared/ui/LoadingIndicator";
+import { LoadingIndicator } from "~/layout/LoadingIndicator";
 
 function TreeNodeComponent({
   node,

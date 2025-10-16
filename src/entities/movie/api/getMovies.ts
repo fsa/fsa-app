@@ -1,7 +1,7 @@
-import { api } from "~/services/api";
-import type { Movie } from "../model/types";
+import { api } from '~/shared/api/api';
+import type { Movie } from '../model/types';
 
 export const getMovies = async (): Promise<Movie[]> => {
-  const response = await api.post<Movie[]>("/movie", {});
+  const response = await api.get<Movie[]>('/movie', {});
   return response.data;
 };

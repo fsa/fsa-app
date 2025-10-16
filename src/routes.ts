@@ -1,14 +1,16 @@
-import { type RouteConfig, index, route } from "@react-router/dev/routes";
+import { type RouteConfig, index, layout, route } from "@react-router/dev/routes";
 
 export default [
-  route('/login', 'pages/LoginPage.tsx'),
-  route("/", "app/layout/AppLayout.tsx", [
-    index("pages/HomePage.tsx"),
-    route('/scanner', 'pages/ScannerPage.tsx'),
-    route('/movie', 'pages/MoviePage.tsx'),
-    route('/checks', 'pages/ChecksPage.tsx'),
-    route('/store', 'pages/StorePage.tsx'),
-    route('/wallet', 'pages/WalletPage.tsx'),
-    route("/wallet/account/:id", "pages/WalletAccountPage.tsx"),
+  route('/login', 'routes/login.tsx'),
+  layout("layout/AppLayout.tsx", [
+    index("routes/_index.tsx"),
+    route('/movie', 'routes/movie.tsx'),
+    route('/scanner', 'routes/scanner.tsx'),
+    route('/checks', 'routes/checks.tsx'),
+    route('/store', 'routes/store.tsx'),
+    route('/wallet', 'routes/wallet.tsx'),
+    route("/wallet/account/:id", "routes/wallet.account.$id.tsx"),
   ]),
 ] satisfies RouteConfig;
+
+

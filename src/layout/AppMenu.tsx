@@ -7,9 +7,9 @@ import {
   ListSubheader,
   Divider,
 } from "@mui/material";
-import { configMainMenu, type MenuEntry } from "~/shared/config/MainMenu";
+import { configMainMenu, type MenuEntry } from "~/config/MainMenu";
 import { useNavigate } from "react-router";
-import { hasRole } from "~/services/auth";
+import { useAuth } from "~/shared/api/useAuth";
 
 interface Props {
   onNavigate?: () => void
@@ -18,12 +18,15 @@ interface Props {
 export function AppMenu({ onNavigate }: Props) {
   const navigate = useNavigate();
 
-  const isAdmin = hasRole("ROLE_ADMIN");
+  const { user, isAuthenticated } = useAuth();
+
+  const isAdmin = isAuthenticated && user?.roles.includes("ROLE_ADMIN");
 
   const isAllowed = (entry: MenuEntry) => {
     if (isAdmin) return true;
-    if (!entry.roles) return true;
-    return entry.roles.some((role) => hasRole(role));
+    if (!entry.roles || entry.roles.length === 0) return true;
+    if (!isAuthenticated || !user) return false;
+    return entry.roles.some(role => user.roles.includes(role));
   };
 
   return (

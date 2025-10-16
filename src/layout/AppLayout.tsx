@@ -1,43 +1,64 @@
-import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router";
-import { getAccessToken, refreshToken, setAccessToken } from "~/services/auth";
-import { AppBar, Box, Container, CssBaseline, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
+import { useState } from "react";
+import { Link, Outlet } from "react-router";
+import { AppBar, Box, Button, Container, CssBaseline, Drawer, IconButton, Stack, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppMenu } from "../AppMenu";
-import { UserMenu } from "~/features/UserMenu";
+import { AppMenu } from "./AppMenu";
+import { UserMenu } from "./UserMenu";
+import { Login } from "@mui/icons-material";
+import { useAuth } from "~/shared/api/useAuth";
 
-const drawerWidth = 240;
 
 export default function AppLayout() {
-  const navigate = useNavigate();
-  const [checking, setChecking] = useState(true);
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  useEffect(() => {
-    async function checkAuth() {
-      let token = getAccessToken();
-
-      if (!token) {
-        try {
-          token = await refreshToken();
-          setAccessToken(token);
-        } catch {
-          navigate("/login", { replace: true });
-          return;
-        }
-      }
-
-      setChecking(false);
-    }
-
-    checkAuth();
-  }, [navigate]);
-
-  if (checking) return <div>Проверка авторизации...</div>;
+  const { user, isAuthenticated } = useAuth();
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const drawerWidth = 240;
+  const logo = 'FSA';
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  if (!isAuthenticated) {
+    return (
+      <>
+        <CssBaseline />
+        <Box sx={{ display: "flex" }}>
+          <AppBar
+            position="fixed"
+            color="primary"
+            sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          >
+            <Toolbar>
+              <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                {logo}
+              </Typography>
+              <Button color="inherit" component={Link} to="/login">
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Login />
+                  <Typography>Войти</Typography>
+                </Stack>
+              </Button>
+            </Toolbar>
+          </AppBar>
+
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              pt: 3,
+              width: { sm: `calc(100% - ${drawerWidth}px)` },
+              overflowX: "auto",
+            }}
+          >
+            <Toolbar />
+            <Container maxWidth="lg">
+              <Outlet />
+            </Container>
+          </Box>
+        </Box>
+      </>
+    );
+  }
 
   return (
     <>

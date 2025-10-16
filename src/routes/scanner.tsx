@@ -1,5 +1,6 @@
 import { QrScanner } from "~/widgets/QrScanner";
-import type { Route } from "./+types/ScannerPage";
+import type { Route } from "./+types/scanner";
+import { PrivateRoute } from "~/providers";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -8,8 +9,10 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export default function ScannerPage() {
+export default function Component() {
   return (
-    <QrScanner />
+    <PrivateRoute>
+      <QrScanner />
+    </PrivateRoute>
   );
 }

@@ -1,5 +1,6 @@
+import type { Route } from "./+types/movie";
+import { PrivateRoute } from "~/providers";
 import { MovieList } from "~/features/movie/list";
-import type { Route } from "./+types/MoviePage";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -8,8 +9,10 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export default function MoviePage() {
+export default function Component() {
   return (
-    <MovieList />
-  )
+    <PrivateRoute>
+      <MovieList />
+    </PrivateRoute>
+  );
 }

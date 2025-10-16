@@ -1,6 +1,6 @@
 import { FnsChecksList } from "~/widgets/FnsChecksList";
-import type { Route } from "./+types/ChecksPage";
-import { Container } from "@mui/material";
+import type { Route } from "./+types/checks";
+import { PrivateRoute } from "~/providers";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -9,8 +9,10 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export default function CheckPage() {
+export default function Component() {
   return (
-    <FnsChecksList />
+    <PrivateRoute>
+      <FnsChecksList />
+    </PrivateRoute>
   )
 }

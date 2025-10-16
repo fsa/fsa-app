@@ -8,7 +8,6 @@ import {
   useNavigate,
 } from "react-router";
 
-import type { Route } from "./+types/root";
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -16,7 +15,8 @@ import '@fontsource/roboto/700.css';
 import { Alert, Box, Button, CircularProgress, Container, Paper, Typography } from "@mui/material";
 import { Refresh, Home } from '@mui/icons-material';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { QueryProvider } from "@/app/providers";
+import type { Route } from "./+types/root";
+import { AuthProvider, QueryProvider } from "./providers";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -67,7 +67,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <QueryProvider>
+          <AuthProvider>
           {children}
+          </AuthProvider>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryProvider>
         <ScrollRestoration />
@@ -84,7 +86,7 @@ export default function App() {
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const navigate = useNavigate();
 
-  let message = "Ой! Произошла непредвиденная ошибка";
+  let message = "Произошла непредвиденная ошибка";
   let details = "Попробуйте обновить страницу или вернуться на главную.";
   let stack: string | undefined;
   let statusCode: number | undefined;
@@ -245,7 +247,8 @@ export function HydrateFallback() {
       alignItems="center"
       minHeight="100vh" // на всю высоту экрана
     >
-      <CircularProgress />
+      <CircularProgress sx={{m: 1 }}/>
+      <Typography>Загрузка...</Typography>
     </Box>
   )
 }

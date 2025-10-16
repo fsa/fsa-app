@@ -1,6 +1,6 @@
 import StoreTree from "~/widgets/StoreTree";
-import type { Route } from "./+types/StorePage";
-import { Container } from "@mui/material";
+import type { Route } from "./+types/store";
+import { PrivateRoute } from "~/providers";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -9,8 +9,10 @@ export function meta({ }: Route.MetaArgs) {
   ];
 }
 
-export default function StorePage() {
+export default function Component() {
   return (
-    <StoreTree />
+    <PrivateRoute>
+      <StoreTree />
+    </PrivateRoute>
   );
 }

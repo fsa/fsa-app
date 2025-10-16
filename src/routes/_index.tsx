@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import type { Route } from "./+types/HomePage";
+import type { Route } from "./+types/_index";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -7,6 +7,17 @@ export function meta({ }: Route.MetaArgs) {
     { name: "description", content: "Добро пожаловать в приложение FSA!" },
   ];
 }
+
+//export async function loader({ params }: Route.LoaderArgs) {
+//  let team = await fetchTeam(params.teamId);
+//  return { name: team.name };
+//}
+
+//export default function Component({
+//  loaderData,
+//}: Route.ComponentProps) {
+//  return <h1>{loaderData.name}</h1>;
+//}
 
 export default function HomePage() {
   return (

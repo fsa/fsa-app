@@ -1,65 +1,26 @@
-import globals from 'globals';
 import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import pluginReact from 'eslint-plugin-react';
+import { defineConfig } from 'eslint/config';
 
-export default [
+export default defineConfig([
   {
-    // Общие настройки
-    files: ['**/*.js', '**/*.ts'],
-    ignores: ['node_modules/**'],
-    languageOptions: {
-      ecmaVersion: 2024,
-      sourceType: 'module',
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-      },
-    },
-    plugins: {
-      '@typescript-eslint': {
-        rules: {
-          'no-restricted-properties': 'error',
-        },
-      },
-    },
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    plugins: { js },
+    extends: [
+      'js/recommended',
+      'eslint/recommended',
+      'plugin:react/recommended',
+      'plugin:prettier/recommended'
+    ],
+    languageOptions: { globals: globals.browser },
     rules: {
-      'no-console': 'warn',
-      'no-unused-vars': 'error',
-    },
+      "prettier/prettier": [
+        "warn"
+      ]
+    }
   },
-  {
-    files: ['**/*.test.ts'],
-    rules: {
-      'jest/expect-expect': 'error',
-    },
-  },
-  {
-    files: ['**/*.ts'],
-    languageOptions: {
-      parser: require('@typescript-eslint/parser'),
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-        sourceType: 'module',
-      },
-    },
-    plugins: {
-      '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
-    },
-    rules: {
-      '@typescript-eslint/explicit-function-return-type': 'error',
-      "no-restricted-imports": [
-        "error",
-        {
-          "paths": [
-            {
-              "name": "@features",
-              "message": "Avoid direct imports from features. Use only allowed layers."
-            }
-          ]
-        }
-      ],
-    },
-  },
-  js.configs.recommended,
-];
+  tseslint.configs.recommended,
+  pluginReact.configs.flat.recommended,
+]);
