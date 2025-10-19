@@ -40,6 +40,9 @@ export const OpenWeather = () => {
 
   const windDirection = getWindDirection(weather.wind.deg);
 
+  const weatherIcon = weather.weather[0].icon;
+  const iconUrl = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+
   return (
     <Card sx={{ maxWidth: 400, m: 2, boxShadow: 3 }}>
       <CardContent>
@@ -54,8 +57,17 @@ export const OpenWeather = () => {
             </Typography>
           </Box>
           <Box textAlign="center">
-            <Cloud sx={{ fontSize: 48, color: 'primary.main' }} />
-            <Typography variant="body2" fontWeight="medium">
+            <Box
+              component="img"
+              src={iconUrl}
+              alt={weather.weather[0].description}
+              sx={{
+                width: 80,
+                height: 80,
+                filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.2))'
+              }}
+            />
+            <Typography variant="body2" fontWeight="medium" textTransform="capitalize">
               {weather.weather[0].description}
             </Typography>
           </Box>
@@ -97,6 +109,28 @@ export const OpenWeather = () => {
             <Chip label={`${weather.clouds.all}%`} size="small" variant="outlined" />
           </Box>
         </Stack>
+
+        {/* Дополнительная информация */}
+        <Box
+          sx={{
+            mt: 2,
+            pt: 2,
+            borderTop: 1,
+            borderColor: 'divider',
+            display: 'flex',
+            justifyContent: 'space-between'
+          }}
+        >
+          <Typography variant="caption" color="text.secondary">
+            Видимость: {(weather.visibility / 1000).toFixed(1)} км
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
+            Восход: {new Date(weather.sys.sunrise * 1000).toLocaleTimeString('ru-RU', {
+              hour: '2-digit',
+              minute: '2-digit'
+            })}
+          </Typography>
+        </Box>
       </CardContent>
     </Card>
   );
