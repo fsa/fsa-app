@@ -19,10 +19,10 @@ export type MenuEntry =
 
 export const configMainMenu: MenuEntry[] = [
   { type: "item", title: "Главная", path: "/", icon: <HomeIcon /> },
-  { type: "item", title: "Сериалы", path: "/movie", icon: <LocalMoviesIcon /> },
   { type: "item", title: "Сканер", path: "/scanner", icon: <QrCode2Icon /> },
+  { type: "item", title: "Сериалы", path: "/movie", icon: <LocalMoviesIcon /> },
+  { type: "item", title: "Пароли", path: "/password", icon: <PasswordIcon /> },
   { type: "item", title: "Чеки", path: "/checks", icon: <ReceiptIcon /> },
   { type: "item", title: "Товары", path: "/store", icon: <ShoppingCartIcon /> },
   { type: "item", title: "Кошелёк", path: "/wallet", icon: <WalletIcon /> },
-  { type: "item", title: "Пароли", path: "/password", icon: <PasswordIcon /> },
 ];
