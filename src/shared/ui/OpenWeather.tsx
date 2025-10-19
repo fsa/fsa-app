@@ -41,7 +41,7 @@ export const OpenWeather = () => {
   const windDirection = getWindDirection(weather.wind.deg);
 
   const weatherIcon = weather.weather[0].icon;
-  const iconUrl = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+  const iconUrl = `/img/openweather/${weatherIcon}@2x.png`;
 
   const formatTime = (timestamp: number) => {
     return new Date(timestamp * 1000).toLocaleTimeString('ru-RU', {
