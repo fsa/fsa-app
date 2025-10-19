@@ -5,6 +5,7 @@ export default [
   layout("layout/AppLayout.tsx", [
     index("routes/_index.tsx"),
     route('/movie', 'routes/movie.tsx'),
+    route('/password', 'routes/password.tsx'),
     route('/scanner', 'routes/scanner.tsx'),
     route('/checks', 'routes/checks.tsx'),
     route('/store', 'routes/store.tsx'),
