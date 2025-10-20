@@ -1,0 +1,9 @@
+export const HOME = '/';
+export const LOGIN = '/login';
+export const MOVIES = '/movie';
+export const PASSWORD = '/password';
+export const QR_SCANNER = '/scanner';
+export const CHECKS = '/checks';
+export const STORE = '/store';
+export const WALLET_ACCOUNTS = '/wallet';
+export const WALLET_ACCOUNT = '/wallet/account/:id';
