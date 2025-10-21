@@ -1,5 +1,5 @@
 import { api } from "@/shared/api/api";
-import type { TreeNode } from "./storeService";
+import type { TreeNode } from "../entities/store";
 
 export interface QrCodeRegister {
   id: number;

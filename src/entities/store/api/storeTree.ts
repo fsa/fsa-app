@@ -1,11 +1,5 @@
 import { api } from "@/shared/api/api";
-
-export interface TreeNode {
-  id: string;
-  name: string;
-  productId?: number;
-  children?: TreeNode[];
-}
+import type { StoreCheckItem, TreeNode } from "../model/types";
 
 interface ApiNode {
   id: number;
@@ -40,17 +34,6 @@ function adaptApiItem(apiItem: ApiItem): TreeNode {
     name: apiItem.name,
     productId: apiItem.id,
   };
-}
-
-export interface StoreCheckItem {
-  id: number;
-  datetime: string;
-  name: string;
-  price: number;
-  quantity: number;
-  sum: number;
-  real_price: number | null;
-  real_quantity: number | null;
 }
 
 const fetchChildren = async (parentId: string): Promise<TreeNode[]> => {

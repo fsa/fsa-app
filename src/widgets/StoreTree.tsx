@@ -9,8 +9,7 @@ import Inventory2Icon from "@mui/icons-material/Inventory2";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { CircularProgress, IconButton, Stack, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import type { TreeNode } from "@/services/storeService";
-import { useStoreTree } from "@/hooks/useStoreTree";
+import { useStoreTree, type TreeNode } from "@/entities/store";
 import { StoreProductDialog } from "./StoreProductDialog";
 import { LoadingIndicator } from "@/layout/LoadingIndicator";
 
