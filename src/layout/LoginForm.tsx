@@ -1,7 +1,7 @@
 import { Alert, Avatar, Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router";
-import { useAuth } from "~/shared/api/useAuth";
+import { useAuth } from "@/shared/api/useAuth";
+import { useNavigate } from "@tanstack/react-router";
 
 type LoginFormDto = {
   username: string;
@@ -16,7 +16,7 @@ export const LoginForm = () => {
   const onSubmit: SubmitHandler<LoginFormDto> = async (form: LoginFormDto) => {
     try {
       await login.mutateAsync(form);
-      navigate("/");
+      navigate({to: "/"});
     } catch (err: any) {
       throw err;
     }

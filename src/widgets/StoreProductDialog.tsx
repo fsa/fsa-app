@@ -15,8 +15,8 @@ import {
   IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { useStoreCheckItems } from "~/hooks/useStoreCheckItems";
-import type { TreeNode } from "~/services/storeService";
+import { useStoreCheckItems } from "@/hooks/useStoreCheckItems";
+import type { TreeNode } from "@/services/storeService";
 
 interface Props {
   product: TreeNode | null;

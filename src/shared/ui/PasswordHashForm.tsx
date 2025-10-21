@@ -11,7 +11,7 @@ import {
   Alert,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { usePasswordHash } from "~/shared/api/usePasswordHash";
+import { usePasswordHash } from "@/shared/api/usePasswordHash";
 
 interface PasswordFormValues {
   password: string;
@@ -30,6 +30,7 @@ export const PasswordHashForm: React.FC = () => {
   return (
     <Box
       component="form"
+      autoComplete="off"
       onSubmit={handleSubmit(onSubmit)}
       sx={{
         display: "flex",
@@ -46,17 +47,22 @@ export const PasswordHashForm: React.FC = () => {
         label="Пароль"
         type={showPassword ? "text" : "password"}
         fullWidth
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                onClick={() => setShowPassword((prev) => !prev)}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          ),
+        autoComplete="new-password"
+        name="password-hash-form-field"
+        id="password-hash-form-field"
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
         }}
       />
 

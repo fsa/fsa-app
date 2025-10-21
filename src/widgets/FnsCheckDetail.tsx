@@ -12,15 +12,15 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import { useFnsCheck } from "~/hooks/useFnsCheck";
-import { LoadingIndicator } from "~/layout/LoadingIndicator";
+import { useFnsCheck } from "@/hooks/useFnsCheck";
+import { LoadingIndicator } from "@/layout/LoadingIndicator";
 
 interface Props {
   checkId: number;
 }
 
 function FnsCheckDetail({ checkId }: Props) {
-  const { data: check, isLoading, isError, isFetching } = useFnsCheck(checkId);
+  const { data: check, isLoading, isError } = useFnsCheck(checkId);
 
   if (isLoading) {
     return <LoadingIndicator />;

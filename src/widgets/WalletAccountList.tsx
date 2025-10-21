@@ -9,10 +9,10 @@ import {
   TableCell,
   TableBody,
 } from "@mui/material";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
-import { LoadingIndicator } from "~/layout/LoadingIndicator";
-import { api } from "~/shared/api/api";
+import { LoadingIndicator } from "@/layout/LoadingIndicator";
+import { api } from "@/shared/api/api";
 
 interface Account {
   id: number;
@@ -57,7 +57,7 @@ const WalletAccountList = ({ reloadKey }: Props) => {
   }, [reloadKey]);
 
   const handleAccountSelect = (accountId: number) => {
-    navigate(`/wallet/account/${accountId}`);
+    navigate({ to: `/wallet/account/${accountId}` });
   }
 
   if (isLoading) {

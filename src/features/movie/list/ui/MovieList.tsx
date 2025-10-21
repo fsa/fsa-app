@@ -10,8 +10,8 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
-import { Link } from "react-router";
 import { useMovieList } from "../model/useMovieList";
+import { Link } from "@tanstack/react-router";
 
 export const MovieList = () => {
   const { data: movies, isLoading, error } = useMovieList();

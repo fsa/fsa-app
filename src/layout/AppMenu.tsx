@@ -7,9 +7,9 @@ import {
   ListSubheader,
   Divider,
 } from "@mui/material";
-import { configMainMenu, type MenuEntry } from "~/config/MainMenu";
-import { useNavigate } from "react-router";
-import { useAuth } from "~/shared/api/useAuth";
+import { configMainMenu, type MenuEntry } from "@/config/MainMenu";
+import { useAuth } from "@/shared/api/useAuth";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
 
 interface Props {
   onNavigate?: () => void
@@ -17,6 +17,8 @@ interface Props {
 
 export function AppMenu({ onNavigate }: Props) {
   const navigate = useNavigate();
+  const routerState = useRouterState();
+  const currentPath = routerState.location.pathname;
 
   const { user, isAuthenticated } = useAuth();
 
@@ -36,13 +38,13 @@ export function AppMenu({ onNavigate }: Props) {
 
         switch (entry.type) {
           case "item":
-            const isActive = location.pathname === entry.path;
+            const isActive = currentPath === entry.path;
             return (
               <ListItem key={idx} disablePadding>
                 <ListItemButton
                   selected={isActive}
                   onClick={() => {
-                    navigate(entry.path);
+                    navigate({to: entry.path});
                     if (onNavigate) onNavigate();
                   }}
                 >

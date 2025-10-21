@@ -1,20 +1,27 @@
-import { WalletAccountHistory } from "~/widgets/WalletAccoutHistory";
-import { Box, Button, Card, CardContent, CircularProgress, Container, Typography } from "@mui/material";
-import { useWalletAccount } from "~/hooks/useWalletAccount";
-import { useParams } from "react-router";
-import WalletTransactionForm from "~/widgets/WalletTransactionForm";
+import { useWalletAccount } from "@/hooks/useWalletAccount";
+import { WalletAccountHistory } from "@/widgets/WalletAccoutHistory";
+import WalletTransactionForm from "@/widgets/WalletTransactionForm";
+import { Box, Button, Card, CardContent, CircularProgress, Typography } from "@mui/material";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import type { Route } from "./+types/wallet.account.$id";
 
-export function meta({ }: Route.MetaArgs) {
-  return [
-    { title: "Аккаунт" },
-    { name: "description", content: "Движение средств по аккаунту" },
-  ];
-}
+export const Route = createFileRoute('/_layout/wallet/account/$id')({
+  component: WalletAccountPage,
+  head: () => ({
+    meta: [
+      {
+        title: 'Аккаунт',
+      },
+      {
+        name: 'description',
+        content: 'Движение средств по аккаунту',
+      },
+    ],
+  }),
+});
 
-export default function WalletAccountPage() {
-  const params = useParams<{ id: string }>();
+function WalletAccountPage() {
+  const params = Route.useParams();
   const accountId = Number(params.id);
   const [showForm, setShowForm] = useState(false);
 

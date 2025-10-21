@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
-import { Navigate } from "react-router";
-import { useAuth } from "~/shared/api/useAuth";
+import { useAuth } from "@/shared/api/useAuth";
 import { CircularProgress, Box, Typography } from "@mui/material";
+import { Navigate } from "@tanstack/react-router";
 
 interface PrivateRouteProps {
   children: ReactNode;

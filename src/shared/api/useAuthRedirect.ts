@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
 import { useAuth } from "./useAuth";
+import { useNavigate } from "@tanstack/react-router";
 
 export function useAuthRedirect({
   redirectIfAuthenticated,
@@ -16,9 +16,9 @@ export function useAuthRedirect({
     if (isLoading) return;
 
     if (isAuthenticated && redirectIfAuthenticated) {
-      navigate(redirectIfAuthenticated, { replace: true });
+      navigate({ to: redirectIfAuthenticated, replace: true })
     } else if (!isAuthenticated && redirectIfUnauthenticated) {
-      navigate(redirectIfUnauthenticated, { replace: true });
+      navigate({ to: redirectIfUnauthenticated, replace: true })
     }
   }, [isAuthenticated, isLoading, navigate, redirectIfAuthenticated, redirectIfUnauthenticated]);
 }

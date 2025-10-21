@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getAccessToken, login as loginApi, logout as logoutApi, refreshToken } from "~/shared/api/auth";
-import { getUserFromToken } from "~/shared/lib/jwt";
+import { getAccessToken, login as loginApi, logout as logoutApi, refreshToken } from "@/shared/api/auth";
+import { getUserFromToken } from "@/shared/lib/jwt";
 
 // Тип данных пользователя, который декодируется из токена
 interface User {

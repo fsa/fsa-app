@@ -1,3 +1,4 @@
+import { createFileRoute } from "@tanstack/react-router"
 import {
   Card,
   CardContent,
@@ -6,18 +7,26 @@ import {
   Box,
 } from "@mui/material";
 import { useState } from "react";
-import WalletAccountList from "~/widgets/WalletAccountList";
-import WalletAccountForm from "~/widgets/WalletAccountForm";
-import type { Route } from "./+types/wallet";
+import WalletAccountList from "@/widgets/WalletAccountList";
+import WalletAccountForm from "@/widgets/WalletAccountForm";
 
-export function meta({ }: Route.MetaArgs) {
-  return [
-    { title: "Кошелёк" },
-    { name: "description", content: "Список счетов" },
-  ];
-}
+export const Route = createFileRoute('/_layout/wallet')({
+  component: WalletAccountsPage,
+  head: () => ({
+    meta: [
+      {
+        title: 'Кошелёк',
+      },
+      {
+        name: 'description',
+        content: 'Список счетов',
+      },
+    ],
+  }),
 
-export default function WalletPage() {
+});
+
+function WalletAccountsPage() {
   const [reloadKey, setReloadKey] = useState(Date.now());
   const [showForm, setShowForm] = useState(false);
 

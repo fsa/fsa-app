@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { Link, Outlet } from "react-router";
 import { AppBar, Box, Button, Container, CssBaseline, Drawer, IconButton, Stack, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { AppMenu } from "./AppMenu";
 import { UserMenu } from "./UserMenu";
 import { Login } from "@mui/icons-material";
-import { useAuth } from "~/shared/api/useAuth";
+import { useAuth } from "@/shared/api/useAuth";
+import { Link, Outlet } from "@tanstack/react-router";
 
 
 export default function AppLayout() {
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [mobileOpen, setMobileOpen] = useState(false);
   const drawerWidth = 240;
   const logo = 'FSA';

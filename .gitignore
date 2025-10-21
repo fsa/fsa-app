@@ -1,8 +1,5 @@
 .DS_Store
 /node_modules/
-
-# React Router
-/.react-router/
+/.tanstack/
 /build/
-
 *.local
