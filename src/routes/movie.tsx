@@ -1,6 +1,6 @@
 import type { Route } from "./+types/movie";
-import { PrivateRoute } from "~/providers";
-import { MovieList } from "~/features/movie/list";
+import { PrivateRoute } from "@/providers";
+import { MovieList } from "@/features/movie/list";
 
 export function meta({ }: Route.MetaArgs) {
   return [

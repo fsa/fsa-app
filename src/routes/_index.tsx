@@ -1,5 +1,5 @@
 import type { Route } from "./+types/_index";
-import { OpenWeather } from "~/shared/ui/OpenWeather";
+import { OpenWeather } from "@/shared/ui/OpenWeather";
 
 export function meta({ }: Route.MetaArgs) {
   return [

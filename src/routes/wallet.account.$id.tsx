@@ -1,8 +1,8 @@
-import { WalletAccountHistory } from "~/widgets/WalletAccoutHistory";
+import { WalletAccountHistory } from "@/widgets/WalletAccoutHistory";
 import { Box, Button, Card, CardContent, CircularProgress, Container, Typography } from "@mui/material";
-import { useWalletAccount } from "~/hooks/useWalletAccount";
+import { useWalletAccount } from "@/hooks/useWalletAccount";
 import { useParams } from "react-router";
-import WalletTransactionForm from "~/widgets/WalletTransactionForm";
+import WalletTransactionForm from "@/widgets/WalletTransactionForm";
 import { useState } from "react";
 import type { Route } from "./+types/wallet.account.$id";
 

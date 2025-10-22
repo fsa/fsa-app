@@ -1,4 +1,4 @@
-import { api } from "~/shared/api/api";
+import { api } from "@/shared/api/api";
 import type { TreeNode } from "./storeService";
 
 export interface QrCodeRegister {

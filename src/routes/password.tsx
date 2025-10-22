@@ -1,6 +1,6 @@
-import { PasswordHashForm } from "~/shared/ui/PasswordHashForm";
+import { PasswordHashForm } from "@/shared/ui/PasswordHashForm";
 import type { Route } from "./+types/movie";
-import { PrivateRoute } from "~/providers";
+import { PrivateRoute } from "@/providers";
 
 export function meta({ }: Route.MetaArgs) {
   return [

@@ -5,7 +5,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { AppMenu } from "./AppMenu";
 import { UserMenu } from "./UserMenu";
 import { Login } from "@mui/icons-material";
-import { useAuth } from "~/shared/api/useAuth";
+import { useAuth } from "@/shared/api/useAuth";
 
 
 export default function AppLayout() {

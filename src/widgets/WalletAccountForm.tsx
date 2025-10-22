@@ -1,7 +1,7 @@
 import { Box, Button, CircularProgress, TextField, Typography } from "@mui/material";
 import { useForm, type SubmitHandler } from "react-hook-form"
-import { useWalletAccountCreate } from "~/hooks/useWalletAccountCreate";
-import type { WalletAccountCreate } from "~/services/walletService";
+import { useWalletAccountCreate } from "@/hooks/useWalletAccountCreate";
+import type { WalletAccountCreate } from "@/services/walletService";
 
 type Inputs = {
   name: string

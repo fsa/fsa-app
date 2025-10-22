@@ -7,9 +7,9 @@ import {
   ListSubheader,
   Divider,
 } from "@mui/material";
-import { configMainMenu, type MenuEntry } from "~/config/MainMenu";
+import { configMainMenu, type MenuEntry } from "@/config/MainMenu";
 import { useNavigate } from "react-router";
-import { useAuth } from "~/shared/api/useAuth";
+import { useAuth } from "@/shared/api/useAuth";
 
 interface Props {
   onNavigate?: () => void

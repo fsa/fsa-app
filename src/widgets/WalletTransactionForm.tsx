@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Box, Button, CircularProgress, TextField, Typography } from "@mui/material";
-import { useWalletAccountTransaction } from "~/hooks/useWalletAccountTransaction";
+import { useWalletAccountTransaction } from "@/hooks/useWalletAccountTransaction";
 
 interface Props {
   accountId: number;

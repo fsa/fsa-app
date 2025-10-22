@@ -6,8 +6,8 @@ import {
   Box,
 } from "@mui/material";
 import { useState } from "react";
-import WalletAccountList from "~/widgets/WalletAccountList";
-import WalletAccountForm from "~/widgets/WalletAccountForm";
+import WalletAccountList from "@/widgets/WalletAccountList";
+import WalletAccountForm from "@/widgets/WalletAccountForm";
 import type { Route } from "./+types/wallet";
 
 export function meta({ }: Route.MetaArgs) {

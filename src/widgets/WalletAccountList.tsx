@@ -11,8 +11,8 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { LoadingIndicator } from "~/layout/LoadingIndicator";
-import { api } from "~/shared/api/api";
+import { LoadingIndicator } from "@/layout/LoadingIndicator";
+import { api } from "@/shared/api/api";
 
 interface Account {
   id: number;

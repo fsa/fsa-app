@@ -1,6 +1,6 @@
-import { FnsChecksList } from "~/widgets/FnsChecksList";
+import { FnsChecksList } from "@/widgets/FnsChecksList";
 import type { Route } from "./+types/checks";
-import { PrivateRoute } from "~/providers";
+import { PrivateRoute } from "@/providers";
 
 export function meta({ }: Route.MetaArgs) {
   return [

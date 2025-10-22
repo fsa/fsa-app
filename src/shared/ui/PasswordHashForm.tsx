@@ -11,7 +11,7 @@ import {
   Alert,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { usePasswordHash } from "~/shared/api/usePasswordHash";
+import { usePasswordHash } from "@/shared/api/usePasswordHash";
 
 interface PasswordFormValues {
   password: string;

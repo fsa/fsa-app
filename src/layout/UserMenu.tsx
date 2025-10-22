@@ -1,7 +1,7 @@
 import { Logout } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
-import { useAuth } from "~/shared/api/useAuth";
+import { useAuth } from "@/shared/api/useAuth";
 
 export const UserMenu = () => {
   const navigate = useNavigate();

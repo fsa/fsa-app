@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
-import type { WalletAccountEntry } from "~/services/walletService";
+import type { WalletAccountEntry } from "@/services/walletService";
 
 
 const entryColumns: GridColDef[] = [

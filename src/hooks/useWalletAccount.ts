@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { fetchWalletAccountInfo } from "~/services/walletService"
+import { fetchWalletAccountInfo } from "@/services/walletService"
 
 export const useWalletAccount = (accountId: number) => {
   return useQuery({

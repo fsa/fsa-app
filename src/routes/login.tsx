@@ -1,6 +1,6 @@
 import Container from "@mui/material/Container";
-import { LoginForm } from "~/layout/LoginForm";
-import { useAuthRedirect } from "~/shared/api/useAuthRedirect";
+import { LoginForm } from "@/layout/LoginForm";
+import { useAuthRedirect } from "@/shared/api/useAuthRedirect";
 
 export default function Component() {
   useAuthRedirect({ redirectIfAuthenticated: "/" });

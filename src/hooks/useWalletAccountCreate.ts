@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { walletAccountCreate, type WalletAccountCreate } from "~/services/walletService";
+import { walletAccountCreate, type WalletAccountCreate } from "@/services/walletService";
 
 export const useWalletAccountCreate = () => {
   const queryClient = useQueryClient();

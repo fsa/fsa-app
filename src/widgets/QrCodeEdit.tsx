@@ -1,7 +1,7 @@
 import { Box, Button, Card, CardContent, CardHeader, CircularProgress, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useQrCodeUpdateDescription } from "~/hooks/useQrCodeUpdateDescription";
-import type { QrCodeRegister } from "~/services/qrCodeService";
+import { useQrCodeUpdateDescription } from "@/hooks/useQrCodeUpdateDescription";
+import type { QrCodeRegister } from "@/services/qrCodeService";
 import { StoreProductDialog } from "./StoreProductDialog";
 
 export function QrCodeEdit(props: { qrCode: QrCodeRegister }) {

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
-import { updateQrCodeDescription } from "~/services/qrCodeService"
+import { updateQrCodeDescription } from "@/services/qrCodeService"
 
 export const useQrCodeUpdateDescription = () => {
   return useMutation({

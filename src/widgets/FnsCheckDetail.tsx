@@ -1,3 +1,5 @@
+import { useFnsCheck } from "@/hooks/useFnsCheck";
+import { LoadingIndicator } from "@/layout/LoadingIndicator";
 import {
   Box,
   Card,
@@ -12,8 +14,6 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-import { useFnsCheck } from "~/hooks/useFnsCheck";
-import { LoadingIndicator } from "~/layout/LoadingIndicator";
 
 interface Props {
   checkId: number;

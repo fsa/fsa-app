@@ -2,8 +2,8 @@ import { Scanner, type IDetectedBarcode } from '@yudiel/react-qr-scanner';
 import { useState } from 'react';
 import { QrCodeEdit } from './QrCodeEdit';
 import { Box, Button, Card, CardContent, CardHeader, Stack, Typography } from '@mui/material';
-import { useNewQrCode } from '~/hooks/useNewQrCode';
-import type { QrCodeRegister } from '~/services/qrCodeService';
+import { useNewQrCode } from '@/hooks/useNewQrCode';
+import type { QrCodeRegister } from '@/services/qrCodeService';
 
 export function QrScanner() {
   const [decodedResults, setDecodedResults] = useState('');
