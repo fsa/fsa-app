@@ -5,5 +5,6 @@ export const PASSWORD = '/password';
 export const QR_SCANNER = '/scanner';
 export const CHECKS = '/checks';
 export const STORE = '/store';
+export const RESOLVER = '/resolver';
 export const WALLET_ACCOUNTS = '/wallet';
 export const WALLET_ACCOUNT = '/wallet/account/:id';

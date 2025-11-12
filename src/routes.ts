@@ -10,6 +10,7 @@ export default [
     route(PAGE.QR_SCANNER, 'routes/scanner.tsx'),
     route(PAGE.CHECKS, 'routes/checks.tsx'),
     route(PAGE.STORE, 'routes/store.tsx'),
+    route(PAGE.RESOLVER, 'routes/resolver.tsx'),
     route(PAGE.WALLET_ACCOUNTS, 'routes/wallet.tsx'),
     route(PAGE.WALLET_ACCOUNT, "routes/wallet.account.$id.tsx"),
   ]),
