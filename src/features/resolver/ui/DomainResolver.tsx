@@ -7,10 +7,11 @@ interface ResolveResult {
 }
 
 interface DomainResolverProps {
+  title?: string;
   onResolve?: (result: ResolveResult) => void;
 }
 
-const DomainResolver: React.FC<DomainResolverProps> = ({ onResolve }) => {
+const DomainResolver: React.FC<DomainResolverProps> = ({ title, onResolve }) => {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ResolveResult | null>(null);
@@ -64,7 +65,7 @@ const DomainResolver: React.FC<DomainResolverProps> = ({ onResolve }) => {
     <Card sx={{ maxWidth: 500, margin: '2rem auto', padding: '1rem' }}>
       <CardContent>
         <Typography variant="h5" gutterBottom>
-          DNS Resolver (DoH)
+          {title ?? "DNS Resolver (DoH)"}
         </Typography>
 
         <TextField

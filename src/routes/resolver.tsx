@@ -12,7 +12,7 @@ export function meta({ }: Route.MetaArgs) {
 export default function Component() {
   return (
     <PrivateRoute>
-      <DomainResolver />
+      <DomainResolver title="Добавить заблокированный домен"/>
     </PrivateRoute>
   );
 }
