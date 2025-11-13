@@ -1,5 +1,5 @@
 import { Scanner, type IDetectedBarcode } from '@yudiel/react-qr-scanner';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { QrCodeEdit } from './QrCodeEdit';
 import { Box, Button, Card, CardContent, CardHeader, Stack, Typography } from '@mui/material';
 import { useNewQrCode } from '@/hooks/useNewQrCode';
@@ -10,6 +10,25 @@ export function QrScanner() {
   const [qrCodeDescription, setQrCodeDescription] = useState<QrCodeRegister | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const { mutate } = useNewQrCode();
+
+  const wasPausedBeforeHidden = useRef(false);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        wasPausedBeforeHidden.current = isPaused;
+        setIsPaused(true);
+      } else if (document.visibilityState === 'visible') {
+        setIsPaused(wasPausedBeforeHidden.current);
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isPaused]);
 
   const onScanCode = (result: IDetectedBarcode[]) => {
     const text = result[0].rawValue;
