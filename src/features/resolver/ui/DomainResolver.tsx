@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Card, CardContent, Typography, CircularProgress, Alert } from '@mui/material';
 
-interface ResolveResult {
+export interface ResolveResult {
   domain: string;
   ips: string[];
 }

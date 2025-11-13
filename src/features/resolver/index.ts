@@ -1,1 +1,1 @@
-export { DomainResolver } from './ui/DomainResolver';
+export { type ResolveResult, DomainResolver } from './ui/DomainResolver';
