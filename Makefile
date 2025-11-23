@@ -4,6 +4,6 @@ build:
 	npm run build
 
 rsync:
-	rsync -aHv build/client/ www@leon:/var/www/app.fsa.su/build/client/
+	rsync -aHv build/client/ www@leon:/var/www/fsa.su/react/build/client/
 
 .PHONY: build
